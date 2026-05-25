@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SafeImage } from "@/components/ui/SafeImage";
 import type { Product } from "@/lib/products";
-import { assetPath, formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 type ProductCardProps = {
   product: Product;
@@ -27,11 +27,11 @@ export function ProductCard({ product, index = 0, onQuickView }: ProductCardProp
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-sand/25">
         <Link href={`/product/${product.slug}/`}>
-          <Image
-            src={assetPath(product.image)}
+          <SafeImage
+            src={product.image}
             alt={product.name}
             fill
-            className="img-editorial transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             sizes="(max-width: 640px) 50vw, 33vw"
           />
         </Link>

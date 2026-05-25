@@ -18,15 +18,13 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "HC Pet Fashion — Luxury Pet Rainwear & Bespoke Style",
   description:
     "Premium pet fashion for stylish companions. Luxury raincoats, custom pieces, and editorial pet wear from $50–$80.",
-  metadataBase: basePath
-    ? new URL(`https://example.github.io${basePath}`)
-    : undefined,
+  metadataBase: new URL(siteUrl),
 };
 
 export default function RootLayout({

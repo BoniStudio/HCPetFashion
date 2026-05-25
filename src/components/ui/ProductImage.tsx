@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { cn } from "@/lib/utils";
-import { assetPath } from "@/lib/utils";
 
 type ProductImageProps = {
   src: string;
@@ -36,13 +35,13 @@ export function ProductImage({
         className
       )}
     >
-      <Image
-        src={assetPath(src)}
+      <SafeImage
+        src={src}
         alt={alt}
         fill
         priority={priority}
         sizes={sizes}
-        className="img-editorial transition-transform duration-700 ease-out"
+        className="transition-transform duration-700 ease-out"
       />
     </div>
   );

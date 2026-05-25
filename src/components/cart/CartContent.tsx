@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { useCart } from "@/lib/cart";
 import { CHECKOUT_API_PATH } from "@/lib/checkout-api.example";
-import { assetPath, formatPrice } from "@/lib/utils";
+import { withBasePath } from "@/lib/site";
+import { formatPrice } from "@/lib/utils";
 
 export function CartContent() {
   const { items, removeItem, updateQuantity, total, clearCart } = useCart();
@@ -14,7 +15,7 @@ export function CartContent() {
     // Reserved for Stripe — requires server deployment (Vercel/Node)
     // Static GitHub Pages: use external checkout or serverless function URL
     try {
-      const res = await fetch(CHECKOUT_API_PATH, {
+      const res = await fetch(withBasePath(CHECKOUT_API_PATH), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
@@ -56,12 +57,7 @@ export function CartContent() {
             className="flex gap-6 border-b border-sand/50 pb-10"
           >
             <div className="relative h-32 w-28 shrink-0 overflow-hidden bg-sand/25">
-              <Image
-                src={assetPath(item.image)}
-                alt={item.name}
-                fill
-                className="img-editorial"
-              />
+              <SafeImage src={item.image} alt={item.name} fill />
             </div>
             <div className="flex flex-1 flex-col justify-between">
               <div>

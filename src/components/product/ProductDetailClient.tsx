@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/products";
-import { assetPath, cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 
 type ProductDetailClientProps = {
   product: Product;
@@ -35,12 +35,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             transition={{ duration: 1 }}
             className="relative aspect-[3/4] overflow-hidden bg-sand/25 lg:sticky lg:top-28 lg:self-start"
           >
-            <Image
-              src={assetPath(product.images[activeImage])}
+            <SafeImage
+              src={product.images[activeImage]}
               alt={product.name}
               fill
               priority
-              className="img-editorial"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </motion.div>
@@ -121,11 +120,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 onClick={() => setActiveImage(i + 1)}
                 className="relative aspect-square overflow-hidden bg-sand/20"
               >
-                <Image
-                  src={assetPath(img)}
+                <SafeImage
+                  src={img}
                   alt={`${product.name} detail ${i + 1}`}
                   fill
-                  className="img-editorial opacity-90 transition-opacity hover:opacity-100"
+                  className="opacity-90 transition-opacity hover:opacity-100"
                 />
               </button>
             ))}

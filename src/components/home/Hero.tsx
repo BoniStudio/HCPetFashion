@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
-import { assetPath } from "@/lib/utils";
 
 type HeroProps = {
   heroProducts: Product[];
@@ -15,7 +14,7 @@ export function Hero({ heroProducts }: HeroProps) {
   const images =
     heroProducts.length > 0
       ? heroProducts.flatMap((p) => p.images.slice(0, 2)).slice(0, 5)
-      : ["/products/placeholder.jpg"];
+      : ["/products/placeholder.svg"];
 
   const [index, setIndex] = useState(0);
   const mouseX = useMotionValue(0);
@@ -97,12 +96,11 @@ export function Hero({ heroProducts }: HeroProps) {
                 }}
                 transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Image
-                  src={assetPath(src)}
+                <SafeImage
+                  src={src}
                   alt="HC Pet Fashion editorial"
                   fill
                   priority={i === 0}
-                  className="img-editorial"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/10 via-transparent to-transparent" />

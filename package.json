@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run generate-products && next build",
+    "build:pages": "npm run generate-products && cross-env NEXT_PUBLIC_BASE_PATH=/HCPetFashion NEXT_PUBLIC_SITE_URL=https://bonistudio.github.io/HCPetFashion next build",
     "start": "next start",
     "lint": "next lint",
     "generate-products": "node scripts/generate-products.mjs",
-    "export": "npm run build"
+    "export": "npm run build:pages"
   },
   "dependencies": {
     "framer-motion": "^11.18.0",
@@ -21,6 +22,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
     "postcss": "^8.4.49",

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Product } from "@/lib/products";
-import { assetPath, formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 type RaincoatEditorialProps = {
   products: Product[];
@@ -42,11 +42,11 @@ export function RaincoatEditorial({ products }: RaincoatEditorialProps) {
               href={`/product/${featured.slug}/`}
               className="group relative block aspect-[4/5] overflow-hidden bg-sand/20 md:aspect-[5/6]"
             >
-              <Image
-                src={assetPath(featured.images[0])}
+              <SafeImage
+                src={featured.images[0]}
                 alt={featured.name}
                 fill
-                className="img-editorial transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
+                className="transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 768px) 100vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -71,11 +71,11 @@ export function RaincoatEditorial({ products }: RaincoatEditorialProps) {
                   href={`/product/${product.slug}/`}
                   className="group relative block aspect-square overflow-hidden bg-sand/20 md:aspect-[4/3]"
                 >
-                  <Image
-                    src={assetPath(product.images[0])}
+                  <SafeImage
+                    src={product.images[0]}
                     alt={product.name}
                     fill
-                    className="img-editorial transition-transform duration-[1s] ease-out group-hover:scale-[1.04]"
+                    className="transition-transform duration-[1s] ease-out group-hover:scale-[1.04]"
                     sizes="(max-width: 768px) 50vw, 25vw"
                   />
                   <div className="absolute inset-0 flex items-end bg-gradient-to-t from-charcoal/25 to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">

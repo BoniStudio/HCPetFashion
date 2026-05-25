@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { SafeImage } from "@/components/ui/SafeImage";
 import type { Product } from "@/lib/products";
-import { assetPath, formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 type QuickViewModalProps = {
   product: Product | null;
@@ -39,12 +39,7 @@ export function QuickViewModal({ product, onClose }: QuickViewModalProps) {
             </button>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="relative aspect-[3/4] bg-sand/20">
-                <Image
-                  src={assetPath(product.image)}
-                  alt={product.name}
-                  fill
-                  className="img-editorial"
-                />
+                <SafeImage src={product.image} alt={product.name} fill />
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-[10px] tracking-[0.3em] text-stone uppercase">

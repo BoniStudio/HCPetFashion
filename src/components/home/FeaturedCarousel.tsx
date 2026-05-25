@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Product } from "@/lib/products";
-import { assetPath, formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 type FeaturedCarouselProps = {
   products: Product[];
@@ -41,29 +41,24 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
             transition={{ delay: i * 0.06, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="w-[72vw] shrink-0 sm:w-[320px] md:w-[360px] lg:w-[400px]"
           >
-            <Link
-              href={`/product/${product.slug}/`}
-              className="group block"
-            >
+            <Link href={`/product/${product.slug}/`} className="group block">
               <div className="relative aspect-[3/4] overflow-hidden bg-sand/25 shadow-soft transition-shadow duration-500 group-hover:shadow-hover">
-                <Image
-                  src={assetPath(product.image)}
+                <SafeImage
+                  src={product.image}
                   alt={product.name}
                   fill
-                  className="img-editorial transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   sizes="400px"
                 />
                 <div className="absolute inset-0 bg-charcoal/0 transition-colors duration-500 group-hover:bg-charcoal/5" />
-                <motion.div
-                  className="absolute bottom-0 left-0 right-0 translate-y-4 bg-ivory/80 p-6 opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
-                >
+                <div className="absolute bottom-0 left-0 right-0 translate-y-4 bg-ivory/80 p-6 opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <p className="font-display text-lg font-light text-charcoal">
                     {product.name}
                   </p>
                   <p className="mt-1 text-sm text-stone">
                     {formatPrice(product.price)}
                   </p>
-                </motion.div>
+                </div>
               </div>
             </Link>
           </motion.div>
