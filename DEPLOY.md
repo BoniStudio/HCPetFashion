@@ -1,41 +1,37 @@
-# GitHub Pages 部署检查清单
+# 部署说明 — hcpetfashion.red
 
-## 为什么线上显示 README？
-
-常见原因（与本地 `docs/index.html` 无关）：
-
-1. **Pages 源选错** — 选了 `main` 根目录 / README，而不是 `/docs`
-2. **`docs/` 未 push** — 远程仓库没有构建后的 `docs/index.html`
-3. **用了 GitHub Actions** — 旧 workflow 失败，回退显示 README
-
-## 正确设置
-
-**Settings → Pages → Build and deployment**
-
-| 选项 | 值 |
-|------|-----|
-| Source | Deploy from a branch |
-| Branch | main |
-| Folder | **/docs** |
-
-不要选 GitHub Actions。
-
-## 发布命令
+## 构建
 
 ```bash
 npm run build
-git add docs/ scripts/ next.config.ts package.json package-lock.json README.md DEPLOY.md
-git commit -m "fix: deploy pet store site to docs for GitHub Pages"
-git push origin main
 ```
 
-推送后等待 2–5 分钟，访问：https://bonistudio.github.io/HCPetFashion/
+产物在 `docs/`，资源路径为根路径：
 
-## 本地预览（模拟 GitHub Pages 路径）
+- `/_next/static/...`
+- `/products/...`
 
-```bash
-npm run serve:docs
-# 打开 http://localhost:5080/HCPetFashion/
-```
+**不要**使用 `/HCPetFashion/` 前缀（仅适用于 github.io 子路径，自定义域名会 404）。
 
-不要用 `npx serve docs`（根路径不对，资源会 404）。
+## GitHub Pages
+
+| 设置 | 值 |
+|------|-----|
+| Source | Deploy from a branch |
+| Branch | main |
+| Folder | /docs |
+| Custom domain | hcpetfashion.red |
+
+`docs/CNAME` 内容为：`hcpetfashion.red`
+
+## DNS（域名注册商）
+
+| 类型 | 名称 | 值 |
+|------|------|-----|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | bonistudio.github.io |
+
+（以 GitHub Pages 设置页显示为准）

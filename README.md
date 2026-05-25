@@ -2,7 +2,7 @@
 
 Pet fashion e-commerce site (Next.js 15).
 
-**Live site:** https://bonistudio.github.io/HCPetFashion/
+**Live site:** https://hcpetfashion.red
 
 ## Development
 
@@ -11,15 +11,14 @@ npm install
 npm run dev
 ```
 
-## Deploy to GitHub Pages
+## Deploy (GitHub Pages + custom domain)
 
 ```bash
 npm run build
 git add docs/
-git commit -m "chore: update GitHub Pages site"
+git commit -m "chore: update site"
 git push origin main
 ```
 
-GitHub **Settings → Pages → Deploy from a branch → main → /docs**
-
-> The website lives in `docs/` (generated). This README is **not** the homepage.
+GitHub **Settings → Pages → main → /docs**  
+Custom domain: **hcpetfashion.red** (see `docs/CNAME`)

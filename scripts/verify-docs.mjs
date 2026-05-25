@@ -32,6 +32,32 @@ for (const { file, must } of checks) {
     console.error(`❌ docs/${file} contains README content`);
     ok = false;
   }
+  if (html.includes("/HCPetFashion/")) {
+    console.error(`❌ docs/${file} still uses /HCPetFashion/ paths (custom domain needs root paths)`);
+    ok = false;
+  }
+}
+
+const indexHtml = fs.readFileSync(path.join(DOCS, "index.html"), "utf8");
+if (!indexHtml.includes("/_next/static/css/")) {
+  console.error("❌ docs/index.html missing /_next/static/css/ stylesheet path");
+  ok = false;
+}
+if (indexHtml.includes("/HCPetFashion/_next/")) {
+  console.error("❌ docs/index.html CSS/JS still prefixed with /HCPetFashion/");
+  ok = false;
+}
+
+const cnamePath = path.join(DOCS, "CNAME");
+if (!fs.existsSync(cnamePath)) {
+  console.error("❌ Missing docs/CNAME");
+  ok = false;
+} else {
+  const cname = fs.readFileSync(cnamePath, "utf8").trim();
+  if (cname !== "hcpetfashion.red") {
+    console.error(`❌ docs/CNAME should be "hcpetfashion.red", got "${cname}"`);
+    ok = false;
+  }
 }
 
 if (!fs.existsSync(path.join(DOCS, ".nojekyll"))) {
@@ -40,4 +66,4 @@ if (!fs.existsSync(path.join(DOCS, ".nojekyll"))) {
 }
 
 if (!ok) process.exit(1);
-console.log("✅ All docs/ verification checks passed");
+console.log("✅ All docs/ verification checks passed (root paths, custom domain ready)");

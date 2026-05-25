@@ -1,22 +1,25 @@
 /**
- * GitHub Pages — docs/ folder deployment
- * https://bonistudio.github.io/HCPetFashion
- * https://hcpetfashion.red (custom domain)
+ * Custom domain: https://hcpetfashion.red
+ * Static export via docs/ — all assets at root paths (/products, /_next)
  */
-export const REPO_NAME = "HCPetFashion";
-export const GITHUB_PAGES_BASE_PATH = `/${REPO_NAME}`;
 export const CUSTOM_DOMAIN = "hcpetfashion.red";
+export const SITE_URL = "https://hcpetfashion.red";
 
-export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+/** Always empty — custom domain serves from site root */
+export const basePath = "";
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (basePath ? `https://${CUSTOM_DOMAIN}` : "http://localhost:3000");
+  (process.env.NODE_ENV === "production"
+    ? SITE_URL
+    : "http://localhost:3000");
 
-/** Prefix paths for static assets (next/image on static export). */
+/**
+ * Asset path helper for static export.
+ * Custom domain: paths stay as /products/... (no subpath prefix).
+ */
 export function withBasePath(path: string): string {
-  if (!path) return basePath || "/";
+  if (!path) return "/";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${basePath}${normalized}`;
+  return path.startsWith("/") ? path : `/${path}`;
 }
