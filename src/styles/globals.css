@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #f7f4ef;
+  --color-ivory: #faf8f5;
+  --color-charcoal: #3d3a36;
+  --color-stone: #9a948a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ivory text-charcoal antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+::selection {
+  @apply bg-sand text-charcoal;
+}
+
+/* Editorial image treatment */
+.img-editorial {
+  @apply object-cover object-center;
+}
+
+/* Subtle grain overlay */
+.grain-overlay::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* Glass blur utility */
+.glass {
+  @apply bg-ivory/70 backdrop-blur-md border border-sand/40;
+}
+
+/* Hide scrollbar for carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth image reveal */
+@keyframes imageReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.6;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.reveal-image {
+  animation: imageReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
