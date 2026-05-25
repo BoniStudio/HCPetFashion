@@ -1,23 +1,19 @@
 /**
- * GitHub Pages site configuration
+ * GitHub Pages — docs/ folder deployment
  * https://bonistudio.github.io/HCPetFashion
+ * https://hcpetfashion.red (custom domain)
  */
 export const REPO_NAME = "HCPetFashion";
 export const GITHUB_PAGES_BASE_PATH = `/${REPO_NAME}`;
-export const GITHUB_PAGES_URL = `https://bonistudio.github.io${GITHUB_PAGES_BASE_PATH}`;
+export const CUSTOM_DOMAIN = "hcpetfashion.red";
 
-/** Set at build time via NEXT_PUBLIC_BASE_PATH (empty for local dev) */
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (basePath ? GITHUB_PAGES_URL : "http://localhost:3000");
+  (basePath ? `https://${CUSTOM_DOMAIN}` : "http://localhost:3000");
 
-/**
- * Prefix paths for static assets & fetch.
- * Required for next/image on static export (GitHub Pages).
- * next/link applies basePath automatically — do not use on Link href.
- */
+/** Prefix paths for static assets (next/image on static export). */
 export function withBasePath(path: string): string {
   if (!path) return basePath || "/";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
