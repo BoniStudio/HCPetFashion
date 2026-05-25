@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
-const isProduction = process.env.NODE_ENV === "production";
-const basePath = isProduction ? "/HCPetFashion" : "";
-const assetPrefix = isProduction ? "/HCPetFashion/" : undefined;
+const isProd =
+  process.env.NODE_ENV === "production" ||
+  process.env.NEXT_PUBLIC_BASE_PATH === "/HCPetFashion";
+
+const basePath = isProd ? "/HCPetFashion" : "";
+const assetPrefix = isProd ? "/HCPetFashion/" : undefined;
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -14,7 +17,7 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
-    NEXT_PUBLIC_SITE_URL: isProduction
+    NEXT_PUBLIC_SITE_URL: isProd
       ? "https://hcpetfashion.red"
       : "http://localhost:3000",
   },

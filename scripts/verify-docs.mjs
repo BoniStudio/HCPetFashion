@@ -1,0 +1,43 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DOCS = path.join(__dirname, "..", "docs");
+
+const checks = [
+  { file: "index.html", must: ["HC Pet Fashion", "Crafted for", "Shop", "Cart"] },
+  { file: "shop/index.html", must: ["Shop", "Raincoat"] },
+  { file: "contact/index.html", must: ["Contact"] },
+  { file: "cart/index.html", must: ["Cart"] },
+];
+
+let ok = true;
+
+for (const { file, must } of checks) {
+  const full = path.join(DOCS, file);
+  if (!fs.existsSync(full)) {
+    console.error(`❌ Missing docs/${file}`);
+    ok = false;
+    continue;
+  }
+  const html = fs.readFileSync(full, "utf8");
+  for (const m of must) {
+    if (!html.includes(m)) {
+      console.error(`❌ docs/${file} missing "${m}"`);
+      ok = false;
+    }
+  }
+  if (html.includes("快速开始") || html.includes("GitHub Pages 部署")) {
+    console.error(`❌ docs/${file} contains README content`);
+    ok = false;
+  }
+}
+
+if (!fs.existsSync(path.join(DOCS, ".nojekyll"))) {
+  console.error("❌ Missing docs/.nojekyll");
+  ok = false;
+}
+
+if (!ok) process.exit(1);
+console.log("✅ All docs/ verification checks passed");

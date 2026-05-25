@@ -1,40 +1,25 @@
 # HC Pet Fashion
 
-轻奢宠物时尚独立站 — Next.js 15 · GitHub Pages（`docs/` 静态部署）
+Pet fashion e-commerce site (Next.js 15).
 
-| 地址 | URL |
-|------|-----|
-| GitHub Pages | https://bonistudio.github.io/HCPetFashion/ |
-| 自定义域名 | https://hcpetfashion.red |
+**Live site:** https://bonistudio.github.io/HCPetFashion/
 
-## 开发
+## Development
 
 ```bash
 npm install
-npm run generate-products
 npm run dev
 ```
 
-## 发布到 GitHub Pages
+## Deploy to GitHub Pages
 
 ```bash
 npm run build
+git add docs/
+git commit -m "chore: update GitHub Pages site"
+git push origin main
 ```
 
-此命令会：生成商品数据 → 静态导出到 `out/` → 复制到 `docs/` → 写入 `.nojekyll` 与 `CNAME`。
+GitHub **Settings → Pages → Deploy from a branch → main → /docs**
 
-### GitHub 设置（一次性）
-
-**Settings → Pages → Build and deployment**
-
-- Source: **Deploy from a branch**
-- Branch: **main**
-- Folder: **/docs**
-
-不要使用 GitHub Actions 部署；不要选 README 作为来源。
-
-## 项目结构
-
-- `docs/` — 构建产物（提交到 Git），Pages 从此目录发布
-- `src/` — Next.js 源码
-- `Website Image/` — 原始商品图
+> The website lives in `docs/` (generated). This README is **not** the homepage.
