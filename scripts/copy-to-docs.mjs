@@ -9,7 +9,7 @@ const DOCS_DIR = path.join(ROOT, "docs");
 
 const REQUIRED_MARKERS = [
   "HC Pet Fashion",
-  "Rainwear for",
+  "Rainwear",
   "Little Storms",
   "Cyber Boutique",
 ];

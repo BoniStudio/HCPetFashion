@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { Button } from "@/components/ui/Button";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/utils";
 
@@ -11,18 +12,29 @@ type HeroProps = {
   heroProducts: Product[];
 };
 
-const floatingTags = ["Limited", "Rain-ready", "Bespoke"];
+const floatingTags = [
+  { label: "Limited Drop", pos: "top-[12%] left-[4%] md:left-[8%]" },
+  { label: "Rain Ready", pos: "top-[18%] right-[6%] md:right-[12%]" },
+  { label: "Bespoke", pos: "bottom-[28%] left-[6%] md:left-[10%]" },
+  { label: "Curated in Asia", pos: "bottom-[22%] right-[4%] md:right-[8%]" },
+];
 
 export function Hero({ heroProducts }: HeroProps) {
-  const hero = heroProducts[0];
+  const hero = useMemo(
+    () =>
+      heroProducts.find((p) => p.slug === "dino-rain-shell") ??
+      heroProducts.find((p) => p.categories.includes("raincoat")) ??
+      heroProducts[0],
+    [heroProducts]
+  );
   const heroImage = hero?.images[0] ?? "/products/placeholder.svg";
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 60, damping: 18 });
-  const springY = useSpring(mouseY, { stiffness: 60, damping: 18 });
-  const rotateX = useTransform(springY, [-0.5, 0.5], [6, -6]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-8, 8]);
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const rotateX = useTransform(springY, [-0.5, 0.5], [4, -4]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
 
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -38,35 +50,59 @@ export function Hero({ heroProducts }: HeroProps) {
       className="relative min-h-screen overflow-hidden pt-[4.5rem] md:pt-20"
       onMouseMove={onMouseMove}
     >
-      <div
-        className="glow-orb pointer-events-none absolute -right-20 top-32 h-[420px] w-[420px] rounded-full bg-mist/50 blur-3xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute bottom-20 left-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
-        aria-hidden
-      />
+      {/* Background — atmosphere only, no logo */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 bg-gradient-to-br from-mist/25 via-ivory to-accent/10" />
+        <div className="glow-orb absolute -right-24 top-24 h-80 w-80 rounded-full bg-mist/40 blur-3xl md:h-[420px] md:w-[420px]" />
+        <div className="absolute bottom-16 left-8 h-48 w-48 rounded-full bg-accent/15 blur-3xl md:h-64 md:w-64" />
+        <div className="absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 rounded-full bg-silver/20 blur-[80px]" />
+      </div>
 
-      <div className="mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[1400px] grid-cols-1 items-center gap-12 px-6 py-16 md:min-h-[calc(100vh-5rem)] md:grid-cols-2 md:gap-8 md:px-12 lg:px-16 lg:py-24">
+      {/* Mid-layer — small floating tags, edges only */}
+      <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
+        {floatingTags.map((tag, i) => (
+          <motion.span
+            key={tag.label}
+            className={`absolute hidden rounded-full border border-white/30 bg-white/20 px-3 py-1.5 font-display text-[8px] tracking-[0.22em] text-ink/70 uppercase backdrop-blur-md md:inline-block ${tag.pos}`}
+            animate={{ y: [0, -5, 0] }}
+            transition={{
+              duration: 5 + i * 0.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {tag.label}
+          </motion.span>
+        ))}
+      </div>
+
+      {/* Foreground — typography + product */}
+      <div className="relative z-[2] mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[1400px] grid-cols-1 items-center gap-10 px-6 py-14 md:min-h-[calc(100vh-5rem)] md:grid-cols-2 md:gap-12 md:px-12 lg:gap-16 lg:px-16 lg:py-20">
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="order-2 flex flex-col justify-center md:order-1"
         >
-          <p className="font-display text-[10px] tracking-[0.42em] text-muted uppercase">
+          <p className="font-display text-[10px] tracking-[0.38em] text-muted uppercase">
             HC Pet Fashion / Cyber Boutique
           </p>
-          <h1 className="mt-6 font-display text-[2.75rem] font-medium leading-[0.95] tracking-[-0.03em] text-ink md:text-6xl lg:text-7xl">
-            Rainwear for
-            <br />
-            Little Storms.
+          <h1 className="mt-8 font-display font-medium text-ink">
+            <span className="block text-[2.5rem] leading-[1.05] tracking-[-0.03em] md:text-[3.25rem] lg:text-[3.75rem]">
+              Rainwear
+            </span>
+            <span className="mt-2 block text-[2rem] leading-[1.1] tracking-[-0.02em] text-muted md:mt-3 md:text-[2.5rem] lg:text-[2.75rem]">
+              for
+            </span>
+            <span className="mt-2 block text-[2.5rem] leading-[1.05] tracking-[-0.03em] md:mt-3 md:text-[3.25rem] lg:text-[3.75rem]">
+              Little Storms.
+            </span>
           </h1>
-          <p className="mt-8 max-w-md text-base leading-relaxed text-muted">
+          <p className="mt-10 max-w-md text-[15px] leading-relaxed text-muted md:text-base">
             Curated Asian pet fashion for modern companions — limited rainwear,
             soft silhouettes, and bespoke pieces.
           </p>
-          <div className="mt-12 flex flex-wrap gap-4">
+          <div className="mt-12 flex flex-wrap gap-3 md:gap-4">
             <Button href="/shop/" variant="primary">
               Explore Collection
             </Button>
@@ -80,66 +116,48 @@ export function Hero({ heroProducts }: HeroProps) {
           style={{ rotateX, rotateY, perspective: 1200 }}
           className="relative order-1 md:order-2"
         >
-          <div className="glass-panel relative aspect-[4/5] w-full overflow-hidden shadow-editorial md:aspect-[3/4]">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-ink/5 bg-gradient-to-b from-white/40 to-mist/20 shadow-editorial md:aspect-[3/4]">
             <SafeImage
               src={heroImage}
-              alt={hero?.name ?? "HC Pet Fashion rainwear"}
+              alt={hero?.name ?? "Pet rainwear"}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="!object-contain p-8 md:p-12"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              className="!object-cover object-center"
             />
             {hero && (
-              <div className="glass absolute bottom-6 left-6 px-4 py-3">
-                <p className="font-display text-[10px] tracking-[0.2em] text-muted uppercase">
+              <Link
+                href={`/product/${hero.slug}/`}
+                className="absolute bottom-3 right-3 max-w-[200px] rounded-sm border border-white/40 bg-white/45 px-3 py-2.5 backdrop-blur-md transition-colors hover:bg-white/55 md:bottom-4 md:right-4 md:px-4 md:py-3"
+              >
+                <p className="font-display text-[9px] tracking-[0.18em] text-muted uppercase">
                   {hero.name}
                 </p>
-                <p className="price-display mt-1 text-sm text-ink">
+                <p className="price-display mt-0.5 text-sm font-medium text-ink">
                   {formatPrice(hero.price)}
                 </p>
-              </div>
+                <p className="mt-1 text-[9px] leading-snug text-muted/90">
+                  One curated piece available
+                </p>
+              </Link>
             )}
           </div>
-
-          {floatingTags.map((tag, i) => (
-            <motion.span
-              key={tag}
-              className="glass absolute rounded-full px-4 py-2 font-display text-[9px] tracking-[0.25em] text-ink uppercase"
-              style={{
-                top: `${18 + i * 22}%`,
-                right: i % 2 === 0 ? "-4%" : "8%",
-              }}
-              animate={{ y: [0, -6, 0] }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {tag}
-            </motion.span>
-          ))}
-
-          <div
-            className="glass-accent absolute -left-4 top-1/4 hidden h-24 w-12 rounded-full md:block"
-            aria-hidden
-          />
         </motion.div>
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        transition={{ delay: 1, duration: 0.6 }}
+        className="absolute bottom-6 left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-2 md:bottom-8"
       >
-        <span className="font-display text-[9px] tracking-[0.35em] text-muted uppercase">
+        <span className="font-display text-[8px] tracking-[0.35em] text-muted/80 uppercase">
           Scroll
         </span>
         <motion.span
-          className="h-10 w-px bg-ink/20"
+          className="h-8 w-px bg-ink/15"
           animate={{ scaleY: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={{ duration: 2.2, repeat: Infinity }}
         />
       </motion.div>
     </section>

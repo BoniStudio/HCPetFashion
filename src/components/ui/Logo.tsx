@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type LogoProps = {
@@ -12,10 +11,11 @@ type LogoProps = {
   href?: string;
 };
 
+/** Brand signature sizes — never hero-scale */
 const sizes = {
-  sm: { icon: 28, text: "text-[9px] tracking-[0.28em]" },
-  md: { icon: 36, text: "text-[10px] tracking-[0.32em]" },
-  lg: { icon: 48, text: "text-xs tracking-[0.35em]" },
+  sm: { icon: 26, text: "text-[9px] tracking-[0.28em]" },
+  md: { icon: 32, text: "text-[10px] tracking-[0.32em]" },
+  lg: { icon: 36, text: "text-[10px] tracking-[0.32em]" },
 };
 
 export function Logo({
@@ -27,19 +27,20 @@ export function Logo({
   const s = sizes[size];
 
   const content = (
-    <motion.span
-      className={cn("inline-flex items-center gap-3", className)}
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 400, damping: 28 }}
+    <span
+      className={cn(
+        "inline-flex items-center gap-2.5 transition-opacity duration-300 hover:opacity-80 md:gap-3",
+        className
+      )}
     >
-      <span className="relative shrink-0 overflow-hidden rounded-full">
+      <span className="relative shrink-0">
         <Image
           src="/brand/logo.png"
           alt="HC Pet Fashion"
           width={s.icon}
           height={s.icon}
-          className="h-auto w-auto object-contain"
-          priority
+          className="h-[26px] w-[26px] object-contain md:h-8 md:w-8 lg:h-9 lg:w-9"
+          priority={size === "md"}
           unoptimized
         />
       </span>
@@ -53,12 +54,15 @@ export function Logo({
           HC Pet Fashion
         </span>
       )}
-    </motion.span>
+    </span>
   );
 
   if (href) {
     return (
-      <Link href={href} className="inline-flex focus-visible:outline-none">
+      <Link
+        href={href}
+        className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/40"
+      >
         {content}
       </Link>
     );

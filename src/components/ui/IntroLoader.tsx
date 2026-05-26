@@ -32,9 +32,9 @@ export function IntroLoader() {
             <Image
               src="/brand/logo.png"
               alt=""
-              width={64}
-              height={64}
-              className="object-contain"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
               unoptimized
               priority
             />

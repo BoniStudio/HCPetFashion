@@ -12,7 +12,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px] px-6 py-20 md:px-12 lg:px-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           <div>
-            <Logo size="lg" className="[&_span]:text-ivory-warm" />
+            <Logo size="md" className="[&_span]:text-ivory-warm" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-silver/90">
               Curated pet fashion for modern companions.
             </p>
