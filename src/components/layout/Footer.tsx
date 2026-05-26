@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
-import { INSTAGRAM_URL } from "@/lib/constants";
+import { CONTACT_EMAIL, CONTACT_MAILTO_HREF, INSTAGRAM_URL } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -22,6 +22,12 @@ export function Footer() {
           </div>
 
           <nav className="flex flex-col gap-4">
+            <a
+              href={CONTACT_MAILTO_HREF}
+              className="text-[11px] tracking-[0.18em] text-silver uppercase transition-colors hover:text-accent"
+            >
+              {CONTACT_EMAIL}
+            </a>
             <a
               href={INSTAGRAM_URL}
               target="_blank"

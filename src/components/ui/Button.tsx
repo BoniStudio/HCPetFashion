@@ -35,12 +35,16 @@ export function Button({
   );
 
   if ("href" in props && props.href) {
-    if (props.external) {
+    if (
+      props.external ||
+      props.href.startsWith("mailto:") ||
+      props.href.startsWith("tel:")
+    ) {
       return (
         <a
           href={props.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          target={props.external ? "_blank" : undefined}
+          rel={props.external ? "noopener noreferrer" : undefined}
           className={base}
         >
           {children}

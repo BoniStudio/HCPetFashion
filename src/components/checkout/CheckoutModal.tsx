@@ -1,12 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
-import { buildOrderSummary } from "@/lib/order-summary";
+import { buildOrderMailtoBody, buildOrderSummary } from "@/lib/order-summary";
 import { CHECKOUT_PREP_MESSAGE } from "@/lib/checkout";
-import { INSTAGRAM_URL } from "@/lib/constants";
+import { buildOrderInquiryMailto, INSTAGRAM_URL } from "@/lib/constants";
 import { formatPrice } from "@/lib/utils";
 
 type CheckoutModalProps = {
@@ -18,6 +18,10 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
   const { items, total } = useCart();
   const [copied, setCopied] = useState(false);
   const summary = buildOrderSummary(items, total);
+  const emailHref = useMemo(
+    () => buildOrderInquiryMailto(buildOrderMailtoBody(items, total)),
+    [items, total]
+  );
 
   const handleCopy = async () => {
     try {
@@ -72,11 +76,14 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             )}
 
             <div className="mt-8 flex flex-col gap-3">
-              <Button onClick={handleCopy} variant="glass">
-                {copied ? "Copied" : "Copy order summary"}
+              <Button href={emailHref} variant="primary">
+                Email order inquiry
               </Button>
-              <Button href={INSTAGRAM_URL} external variant="primary">
-                Open Instagram
+              <Button href={INSTAGRAM_URL} external variant="glass">
+                Message us on Instagram
+              </Button>
+              <Button onClick={handleCopy} variant="outline">
+                {copied ? "Copied" : "Copy order summary"}
               </Button>
               <Button onClick={onClose} variant="ghost">
                 Continue browsing

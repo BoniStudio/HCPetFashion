@@ -46,4 +46,4 @@ export async function createCheckoutSession(
 }
 
 export const CHECKOUT_PREP_MESSAGE =
-  "Secure checkout is being finalized. For now, send your selection to us on Instagram for the fastest confirmation.";
+  "Secure checkout is being finalized. Email us your selection or message us on Instagram for the fastest confirmation.";

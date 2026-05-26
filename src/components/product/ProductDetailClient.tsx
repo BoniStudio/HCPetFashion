@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { LimitedBadge } from "@/components/ui/LimitedBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { useCart } from "@/lib/cart";
-import { INSTAGRAM_URL } from "@/lib/constants";
+import { INSTAGRAM_URL, buildProductInquiryMailto } from "@/lib/constants";
 import type { Product } from "@/lib/products";
 import { formatCategories } from "@/lib/product-utils";
 import { useToast } from "@/lib/toast";
@@ -171,14 +171,21 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 <Button onClick={handleReserve} variant="glass" className="w-full">
                   Reserve / Checkout Inquiry
                 </Button>
+                <Button
+                  href={buildProductInquiryMailto(product.name)}
+                  variant="outline"
+                  className="w-full"
+                >
+                  Email Inquiry
+                </Button>
                 <Button href={INSTAGRAM_URL} external variant="ghost" className="w-full">
-                  Inquire on Instagram
+                  Message us on Instagram
                 </Button>
               </Reveal>
 
               <p className="mt-6 text-xs leading-relaxed text-muted">
-                Checkout is confirmed via Instagram DM while secure payment is
-                finalized. Many pieces are limited to one item.
+                Confirm availability by email or Instagram while secure checkout
+                is finalized. Many pieces are limited to one item.
               </p>
 
               <Link

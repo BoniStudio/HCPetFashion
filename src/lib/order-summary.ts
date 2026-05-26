@@ -29,3 +29,21 @@ export function buildOrderSummary(items: CartItem[], total: number): string {
 
   return lines.join("\n");
 }
+
+/** Plain-text body for mailto: order inquiry */
+export function buildOrderMailtoBody(items: CartItem[], total: number): string {
+  const lines = ["Order summary:"];
+
+  items.forEach((item) => {
+    lines.push(
+      `- Product name: ${item.name}`,
+      `- Size: ${item.size}`,
+      `- Quantity: ${item.quantity}`,
+      `- Page URL: ${SITE_URL}/product/${item.slug}/`,
+      ""
+    );
+  });
+
+  lines.push(`- Total: ${formatPrice(total)}`);
+  return lines.join("\n");
+}
