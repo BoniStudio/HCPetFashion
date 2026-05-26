@@ -10,6 +10,7 @@ const nav = [
   { href: "/", label: "Home" },
   { href: "/shop/", label: "Shop" },
   { href: "/contact/", label: "Contact" },
+  { href: "/cart/", label: "Cart" },
 ];
 
 export function Header() {
@@ -39,46 +40,32 @@ export function Header() {
           HC Pet Fashion
         </Link>
 
-        <nav className="hidden items-center gap-12 md:flex">
+        <nav className="hidden items-center gap-10 md:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-[11px] font-medium tracking-[0.2em] text-warm uppercase transition-colors hover:text-charcoal"
+              className="relative text-[11px] font-medium tracking-[0.2em] text-warm uppercase transition-colors hover:text-charcoal"
             >
               {item.label}
+              {item.href === "/cart/" && count > 0 && (
+                <span className="absolute -right-5 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-charcoal text-[9px] text-ivory">
+                  {count}
+                </span>
+              )}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-6">
-          <button
-            type="button"
-            className="text-[11px] tracking-[0.2em] text-warm uppercase md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
-          >
-            Menu
-          </button>
-          <Link
-            href="/cart/"
-            className={cn(
-              "relative text-[11px] font-medium tracking-[0.2em] text-warm uppercase",
-              "transition-colors hover:text-charcoal"
-            )}
-          >
-            Cart
-            {count > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute -right-4 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-charcoal text-[9px] text-ivory"
-              >
-                {count}
-              </motion.span>
-            )}
-          </Link>
-        </div>
+        <button
+          type="button"
+          className="text-[11px] tracking-[0.2em] text-warm uppercase md:hidden"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-expanded={menuOpen}
+          aria-label="Toggle menu"
+        >
+          Menu
+        </button>
       </div>
 
       <AnimatePresence>
@@ -87,7 +74,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-sand/50 bg-ivory/95 backdrop-blur-md md:hidden overflow-hidden"
+            className="overflow-hidden border-t border-sand/50 bg-ivory/95 backdrop-blur-md md:hidden"
           >
             <nav className="flex flex-col gap-6 px-6 py-8">
               {nav.map((item) => (
@@ -98,6 +85,7 @@ export function Header() {
                   className="text-[11px] tracking-[0.25em] text-charcoal uppercase"
                 >
                   {item.label}
+                  {item.href === "/cart/" && count > 0 ? ` (${count})` : ""}
                 </Link>
               ))}
             </nav>

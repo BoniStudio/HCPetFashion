@@ -1,5 +1,10 @@
 /* AUTO-GENERATED — run: npm run generate-products */
-export type ProductCategory = "raincoat" | "custom" | "small-dogs" | "fashion";
+export type ProductCategory =
+  | "raincoat"
+  | "custom"
+  | "small-dogs"
+  | "cats"
+  | "accessories";
 
 export type Product = {
   id: string;
@@ -14,11 +19,17 @@ export type Product = {
   sizes: string[];
   featured: boolean;
   hero: boolean;
+  limited: boolean;
+  stock: number;
   tags: string[];
   details: {
+    material: string;
     fabric: string;
     care: string;
     waterproof: boolean;
+    waterResistance: string;
+    bestFor: string;
+    shipping: string;
   };
 };
 
@@ -26,8 +37,20 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   raincoat: "Raincoat",
   custom: "Custom",
   "small-dogs": "Small Dogs",
-  fashion: "Fashion Style",
+  cats: "Cats",
+  accessories: "Accessories",
 };
+
+export const SHOP_FILTER_CATEGORIES = [
+  "all",
+  "raincoat",
+  "custom",
+  "small-dogs",
+  "cats",
+  "accessories",
+] as const;
+
+export type ShopFilterCategory = (typeof SHOP_FILTER_CATEGORIES)[number];
 
 export const products: Product[] = [
   {
@@ -37,8 +60,8 @@ export const products: Product[] = [
     "nameZh": "贝克街",
     "price": 76,
     "categories": [
-      "fashion",
-      "custom"
+      "custom",
+      "accessories"
     ],
     "description": "Detective-inspired trench with bespoke touches and urban sophistication.",
     "images": [
@@ -60,15 +83,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Custom sizing via Instagram",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -78,7 +107,7 @@ export const products: Product[] = [
     "nameZh": "英伦漫步",
     "price": 78,
     "categories": [
-      "fashion"
+      "accessories"
     ],
     "description": "Heritage-inspired walking harness with tailored British proportions.",
     "images": [
@@ -95,15 +124,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Everyday strolls and layering",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -113,7 +148,7 @@ export const products: Product[] = [
     "nameZh": "橘子海",
     "price": 70,
     "categories": [
-      "fashion"
+      "accessories"
     ],
     "description": "Editorial cape with warm citrus tones and fluid drape for city strolls.",
     "images": [
@@ -139,15 +174,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Everyday strolls and layering",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -180,15 +221,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": true,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -198,7 +245,7 @@ export const products: Product[] = [
     "nameZh": "英伦风",
     "price": 80,
     "categories": [
-      "fashion"
+      "accessories"
     ],
     "description": "Classic British styling with wool-blend texture and understated elegance.",
     "images": [
@@ -215,15 +262,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Everyday strolls and layering",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -255,15 +308,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": true,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -291,15 +350,21 @@ export const products: Product[] = [
     ],
     "featured": false,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -309,7 +374,7 @@ export const products: Product[] = [
     "nameZh": "薄荷紫",
     "price": 58,
     "categories": [
-      "fashion"
+      "accessories"
     ],
     "description": "Soft mint-lilac wrap with delicate layering for spring editorial looks.",
     "images": [
@@ -331,15 +396,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Everyday strolls and layering",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -374,15 +445,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": true,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -392,7 +469,7 @@ export const products: Product[] = [
     "nameZh": "熊猫",
     "price": 55,
     "categories": [
-      "fashion",
+      "cats",
       "small-dogs"
     ],
     "description": "Ultra-soft knit with monochrome palette — cozy luxury for petite pets.",
@@ -415,15 +492,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Cats and petite companions",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -433,7 +516,8 @@ export const products: Product[] = [
     "nameZh": "彼得潘",
     "price": 65,
     "categories": [
-      "custom"
+      "custom",
+      "accessories"
     ],
     "description": "Hand-finished custom collar piece inspired by timeless storytelling.",
     "images": [
@@ -453,15 +537,21 @@ export const products: Product[] = [
     ],
     "featured": false,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Custom sizing via Instagram",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -472,7 +562,7 @@ export const products: Product[] = [
     "price": 72,
     "categories": [
       "custom",
-      "fashion"
+      "small-dogs"
     ],
     "description": "Playful bespoke ensemble with artisan detailing for statement-making companions.",
     "images": [
@@ -495,15 +585,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Handcrafted",
-      "Limited run",
+      "Hand-finished",
+      "Limited piece",
       "Soft luxury"
     ],
     "details": {
+      "material": "Premium cotton blend",
       "fabric": "Premium cotton blend with soft-touch finish.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false
+      "waterproof": false,
+      "waterResistance": "Style-first piece — not intended for heavy rain.",
+      "bestFor": "Custom sizing via Instagram",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -513,8 +609,7 @@ export const products: Product[] = [
     "nameZh": "带袖黄风衣",
     "price": 75,
     "categories": [
-      "raincoat",
-      "fashion"
+      "raincoat"
     ],
     "description": "Full-sleeve amber trench with premium finish and refined tailoring.",
     "images": [
@@ -538,15 +633,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": true,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   },
   {
@@ -577,15 +678,21 @@ export const products: Product[] = [
     ],
     "featured": true,
     "hero": false,
+    "limited": true,
+    "stock": 1,
     "tags": [
-      "Waterproof",
-      "Outdoor-ready",
-      "Premium fabric"
+      "Water-repellent",
+      "Lightweight",
+      "Daily wear"
     ],
     "details": {
+      "material": "Bonded shell with cotton lining",
       "fabric": "Bonded waterproof shell with breathable cotton lining.",
       "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true
+      "waterproof": true,
+      "waterResistance": "Water-repellent finish for light to moderate rain.",
+      "bestFor": "Small dogs and cats on rainy walks",
+      "shipping": "Ships within 3–5 business days from the US."
     }
   }
 ] as Product[];

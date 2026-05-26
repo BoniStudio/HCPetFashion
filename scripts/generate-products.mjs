@@ -22,7 +22,7 @@ const FOLDER_META = {
   },
   噗鸡鸭: {
     nameEn: "Quack Duck Custom Set",
-    categories: ["custom", "fashion"],
+    categories: ["custom", "small-dogs"],
     description:
       "Playful bespoke ensemble with artisan detailing for statement-making companions.",
     price: 72,
@@ -39,7 +39,7 @@ const FOLDER_META = {
   },
   带袖黄风衣: {
     nameEn: "Sleeved Amber Trench",
-    categories: ["raincoat", "fashion"],
+    categories: ["raincoat"],
     description:
       "Full-sleeve amber trench with premium finish and refined tailoring.",
     price: 75,
@@ -48,7 +48,7 @@ const FOLDER_META = {
   },
   彼得潘: {
     nameEn: "Peter Pan Custom Collar",
-    categories: ["custom"],
+    categories: ["custom", "accessories"],
     description:
       "Hand-finished custom collar piece inspired by timeless storytelling.",
     price: 65,
@@ -64,7 +64,7 @@ const FOLDER_META = {
   },
   橘子海: {
     nameEn: "Citrus Grove Cape",
-    categories: ["fashion"],
+    categories: ["accessories"],
     description:
       "Editorial cape with warm citrus tones and fluid drape for city strolls.",
     price: 70,
@@ -72,7 +72,7 @@ const FOLDER_META = {
   },
   熊猫: {
     nameEn: "Panda Soft Knit",
-    categories: ["fashion", "small-dogs"],
+    categories: ["cats", "small-dogs"],
     description:
       "Ultra-soft knit with monochrome palette — cozy luxury for petite pets.",
     price: 55,
@@ -97,7 +97,7 @@ const FOLDER_META = {
   },
   英伦漫步: {
     nameEn: "British Stroll Harness",
-    categories: ["fashion"],
+    categories: ["accessories"],
     description:
       "Heritage-inspired walking harness with tailored British proportions.",
     price: 78,
@@ -105,7 +105,7 @@ const FOLDER_META = {
   },
   英伦风: {
     nameEn: "Heritage British Cape",
-    categories: ["fashion"],
+    categories: ["accessories"],
     description:
       "Classic British styling with wool-blend texture and understated elegance.",
     price: 80,
@@ -113,7 +113,7 @@ const FOLDER_META = {
   },
   薄荷紫: {
     nameEn: "Mint Lilac Wrap",
-    categories: ["fashion"],
+    categories: ["accessories"],
     description:
       "Soft mint-lilac wrap with delicate layering for spring editorial looks.",
     price: 58,
@@ -121,7 +121,7 @@ const FOLDER_META = {
   },
   贝克街: {
     nameEn: "Baker Street Trench",
-    categories: ["fashion", "custom"],
+    categories: ["custom", "accessories"],
     description:
       "Detective-inspired trench with bespoke touches and urban sophistication.",
     price: 76,
@@ -194,11 +194,20 @@ function scanProducts() {
 
     const meta = FOLDER_META[folderName] || {
       nameEn: folderName,
-      categories: ["fashion"],
+      categories: ["accessories"],
       description: `Premium pet fashion piece — ${folderName}.`,
       price: 65,
       featured: false,
     };
+
+    const isRaincoat = meta.categories.includes("raincoat");
+    const bestFor = isRaincoat
+      ? "Small dogs and cats on rainy walks"
+      : meta.categories.includes("cats")
+        ? "Cats and petite companions"
+        : meta.categories.includes("custom")
+          ? "Custom sizing via Instagram"
+          : "Everyday strolls and layering";
 
     const slug = slugify(folderName);
     const productDir = path.join(PUBLIC_DIR, slug);
@@ -228,16 +237,25 @@ function scanProducts() {
       sizes,
       featured: meta.featured ?? false,
       hero: meta.hero ?? false,
-      tags: meta.categories.includes("raincoat")
-        ? ["Waterproof", "Outdoor-ready", "Premium fabric"]
-        : ["Handcrafted", "Limited run", "Soft luxury"],
+      limited: true,
+      stock: 1,
+      tags: isRaincoat
+        ? ["Water-repellent", "Lightweight", "Daily wear"]
+        : ["Hand-finished", "Limited piece", "Soft luxury"],
       details: {
-        fabric:
-          meta.categories.includes("raincoat")
-            ? "Bonded waterproof shell with breathable cotton lining."
-            : "Premium cotton blend with soft-touch finish.",
+        material: isRaincoat
+          ? "Bonded shell with cotton lining"
+          : "Premium cotton blend",
+        fabric: isRaincoat
+          ? "Bonded waterproof shell with breathable cotton lining."
+          : "Premium cotton blend with soft-touch finish.",
         care: "Hand wash cold. Lay flat to dry. Do not bleach.",
-        waterproof: meta.categories.includes("raincoat"),
+        waterproof: isRaincoat,
+        waterResistance: isRaincoat
+          ? "Water-repellent finish for light to moderate rain."
+          : "Style-first piece — not intended for heavy rain.",
+        bestFor,
+        shipping: "Ships within 3–5 business days from the US.",
       },
     });
   }
@@ -245,7 +263,12 @@ function scanProducts() {
   products.sort((a, b) => a.name.localeCompare(b.name));
 
   const ts = `/* AUTO-GENERATED — run: npm run generate-products */
-export type ProductCategory = "raincoat" | "custom" | "small-dogs" | "fashion";
+export type ProductCategory =
+  | "raincoat"
+  | "custom"
+  | "small-dogs"
+  | "cats"
+  | "accessories";
 
 export type Product = {
   id: string;
@@ -260,11 +283,17 @@ export type Product = {
   sizes: string[];
   featured: boolean;
   hero: boolean;
+  limited: boolean;
+  stock: number;
   tags: string[];
   details: {
+    material: string;
     fabric: string;
     care: string;
     waterproof: boolean;
+    waterResistance: string;
+    bestFor: string;
+    shipping: string;
   };
 };
 
@@ -272,8 +301,20 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   raincoat: "Raincoat",
   custom: "Custom",
   "small-dogs": "Small Dogs",
-  fashion: "Fashion Style",
+  cats: "Cats",
+  accessories: "Accessories",
 };
+
+export const SHOP_FILTER_CATEGORIES = [
+  "all",
+  "raincoat",
+  "custom",
+  "small-dogs",
+  "cats",
+  "accessories",
+] as const;
+
+export type ShopFilterCategory = (typeof SHOP_FILTER_CATEGORIES)[number];
 
 export const products: Product[] = ${JSON.stringify(products, null, 2)} as Product[];
 

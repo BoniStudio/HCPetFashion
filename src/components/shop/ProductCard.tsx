@@ -3,16 +3,18 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SafeImage } from "@/components/ui/SafeImage";
+import { LimitedBadge } from "@/components/ui/LimitedBadge";
+import { AddToCartButton } from "@/components/shop/AddToCartButton";
 import type { Product } from "@/lib/products";
+import { formatCategories } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
 
 type ProductCardProps = {
   product: Product;
   index?: number;
-  onQuickView?: (product: Product) => void;
 };
 
-export function ProductCard({ product, index = 0, onQuickView }: ProductCardProps) {
+export function ProductCard({ product, index = 0 }: ProductCardProps) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -23,50 +25,55 @@ export function ProductCard({ product, index = 0, onQuickView }: ProductCardProp
         duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group"
+      className="group flex flex-col border border-sand/50 bg-ivory transition-shadow duration-500 hover:shadow-soft"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-sand/25">
-        <Link href={`/product/${product.slug}/`}>
-          <SafeImage
-            src={product.image}
-            alt={product.name}
-            fill
-            className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            sizes="(max-width: 640px) 50vw, 33vw"
-          />
-        </Link>
+      <Link
+        href={`/product/${product.slug}/`}
+        className="relative aspect-[3/4] overflow-hidden bg-sand/25"
+      >
+        <SafeImage
+          src={product.image}
+          alt={product.name}
+          fill
+          className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          sizes="(max-width: 640px) 100vw, 33vw"
+        />
+      </Link>
 
-        <div className="absolute inset-0 flex items-center justify-center gap-4 bg-charcoal/0 opacity-0 transition-all duration-500 group-hover:bg-charcoal/10 group-hover:opacity-100">
+      <div className="flex flex-1 flex-col p-5 md:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <Link href={`/product/${product.slug}/`}>
+              <h3 className="font-display text-base font-light text-charcoal transition-colors group-hover:text-espresso md:text-lg">
+                {product.name}
+              </h3>
+            </Link>
+            <p className="mt-1 text-[10px] tracking-[0.08em] text-stone">
+              {formatCategories(product)}
+            </p>
+          </div>
+          <p className="shrink-0 text-sm text-charcoal">{formatPrice(product.price)}</p>
+        </div>
+
+        {product.limited && (
+          <div className="mt-3">
+            <LimitedBadge />
+          </div>
+        )}
+
+        <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-warm">
+          {product.description}
+        </p>
+
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <Link
             href={`/product/${product.slug}/`}
-            className="glass px-6 py-3 text-[10px] tracking-[0.2em] text-charcoal uppercase transition-transform hover:scale-105"
+            className="border border-charcoal/70 px-5 py-2.5 text-[10px] tracking-[0.18em] text-charcoal uppercase transition-all hover:bg-charcoal hover:text-ivory"
           >
-            View
+            View Details
           </Link>
-          {onQuickView && (
-            <button
-              type="button"
-              onClick={() => onQuickView(product)}
-              className="glass px-6 py-3 text-[10px] tracking-[0.2em] text-charcoal uppercase transition-transform hover:scale-105"
-            >
-              Quick View
-            </button>
-          )}
+          <AddToCartButton product={product} />
         </div>
-      </div>
-
-      <div className="mt-5 flex items-start justify-between gap-4">
-        <div>
-          <Link href={`/product/${product.slug}/`}>
-            <h3 className="font-display text-base font-light text-charcoal transition-colors group-hover:text-espresso">
-              {product.name}
-            </h3>
-          </Link>
-          <p className="mt-1 text-[11px] tracking-[0.1em] text-stone capitalize">
-            {product.categories.join(" · ")}
-          </p>
-        </div>
-        <p className="text-sm text-warm">{formatPrice(product.price)}</p>
       </div>
     </motion.article>
   );

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { CartContent } from "@/components/cart/CartContent";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -9,7 +10,9 @@ export default function CartPage() {
           <h1 className="font-display text-4xl font-light text-charcoal">Cart</h1>
         </Reveal>
         <div className="mt-16">
-          <CartContent />
+          <Suspense fallback={<div className="min-h-[40vh]" />}>
+            <CartContent />
+          </Suspense>
         </div>
       </div>
     </div>

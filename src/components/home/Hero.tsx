@@ -1,9 +1,9 @@
 "use client";
 
 import { SafeImage } from "@/components/ui/SafeImage";
+import { Button } from "@/components/ui/Button";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import type { Product } from "@/lib/products";
 
 type HeroProps = {
@@ -21,8 +21,8 @@ export function Hero({ heroProducts }: HeroProps) {
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 80, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 80, damping: 20 });
-  const imageX = useTransform(springX, [-0.5, 0.5], [-12, 12]);
-  const imageY = useTransform(springY, [-0.5, 0.5], [-8, 8]);
+  const imageX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
+  const imageY = useTransform(springY, [-0.5, 0.5], [-6, 6]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,22 +61,15 @@ export function Hero({ heroProducts }: HeroProps) {
             Rainy Days.
           </h1>
           <p className="mt-8 max-w-md text-base leading-relaxed text-warm">
-            Designed for stylish companions. Premium rainwear and bespoke
-            pieces for the modern pet wardrobe.
+            Premium rainwear and bespoke pet fashion for stylish companions.
           </p>
-          <div className="mt-12 flex flex-wrap gap-6">
-            <Link
-              href="/shop/"
-              className="inline-flex items-center border border-charcoal px-10 py-4 text-[11px] tracking-[0.25em] text-charcoal uppercase transition-all hover:bg-charcoal hover:text-ivory"
-            >
+          <div className="mt-12 flex flex-wrap gap-4">
+            <Button href="/shop/" variant="outline">
               Explore Collection
-            </Link>
-            <Link
-              href="/shop/?category=raincoat"
-              className="inline-flex items-center px-4 py-4 text-[11px] tracking-[0.2em] text-stone uppercase transition-colors hover:text-charcoal"
-            >
+            </Button>
+            <Button href="/shop/?category=raincoat" variant="ghost">
               Raincoat Series
-            </Link>
+            </Button>
           </div>
         </motion.div>
 
@@ -84,45 +77,31 @@ export function Hero({ heroProducts }: HeroProps) {
           style={{ x: imageX, y: imageY }}
           className="relative order-1 aspect-[4/5] w-full md:order-2 md:aspect-[3/4] lg:aspect-[4/5]"
         >
-          <div className="absolute inset-0 rounded-sm shadow-editorial">
+          <div className="absolute inset-0 rounded-sm bg-sand/40 shadow-editorial">
             {images.map((src, i) => (
               <motion.div
                 key={src + i}
-                className="absolute inset-0 overflow-hidden bg-sand/20"
+                className="absolute inset-0 overflow-hidden"
                 initial={false}
                 animate={{
                   opacity: i === index ? 1 : 0,
-                  scale: i === index ? 1 : 1.04,
+                  scale: i === index ? 1 : 1.02,
                 }}
                 transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
               >
                 <SafeImage
                   src={src}
-                  alt="HC Pet Fashion editorial"
+                  alt="HC Pet Fashion rainwear"
                   fill
                   priority={i === 0}
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  className="!object-contain p-6 md:p-10"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/10 via-transparent to-transparent" />
               </motion.div>
             ))}
           </div>
-
-          <div className="absolute -bottom-4 -left-4 hidden h-24 w-24 border border-sand/80 md:block" />
-          <div className="absolute -right-6 top-1/4 hidden h-32 w-px bg-stone/30 md:block" />
         </motion.div>
       </div>
-
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-      >
-        <span className="text-[9px] tracking-[0.3em] text-stone uppercase">
-          Scroll
-        </span>
-        <div className="h-10 w-px bg-stone/40" />
-      </motion.div>
     </section>
   );
 }
