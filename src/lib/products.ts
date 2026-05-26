@@ -24,21 +24,21 @@ export type Product = {
   tags: string[];
   details: {
     material: string;
-    fabric: string;
+    fitNotes: string;
+    weatherUse: string;
     care: string;
-    waterproof: boolean;
-    waterResistance: string;
-    bestFor: string;
     shipping: string;
+    bestFor?: string;
+    waterResistance?: string;
   };
 };
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  raincoat: "Raincoat",
-  custom: "Custom",
-  "small-dogs": "Small Dogs",
-  cats: "Cats",
-  accessories: "Accessories",
+  raincoat: "Rainwear",
+  custom: "Bespoke",
+  "small-dogs": "Small Companions",
+  cats: "Feline Edit",
+  accessories: "Companion Wear",
 };
 
 export const SHOP_FILTER_CATEGORIES = [
@@ -63,7 +63,7 @@ export const products: Product[] = [
       "custom",
       "accessories"
     ],
-    "description": "Detective-inspired trench with bespoke touches and urban sophistication.",
+    "description": "A detective-inspired trench with bespoke details — urban companion wear with quiet drama.",
     "images": [
       "/products/baker-street-trench/01.jpeg",
       "/products/baker-street-trench/02.jpeg",
@@ -86,18 +86,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
+      "Bespoke",
       "Limited piece",
-      "Soft luxury"
+      "Hand-finished"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Custom sizing via Instagram",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Custom trench shell with cotton lining",
+      "fitNotes": "Bespoke fit inquiry via Instagram",
+      "weatherUse": "Weather-friendly layering with rain-ready option",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Custom lead time confirmed on Instagram"
     }
   },
   {
@@ -109,7 +107,7 @@ export const products: Product[] = [
     "categories": [
       "accessories"
     ],
-    "description": "Heritage-inspired walking harness with tailored British proportions.",
+    "description": "A heritage walking harness with tailored proportions — companion wear with a British edit.",
     "images": [
       "/products/british-stroll-harness/01.png",
       "/products/british-stroll-harness/02.jpeg"
@@ -127,18 +125,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
       "Limited piece",
-      "Soft luxury"
+      "Soft luxury",
+      "Editorial"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Everyday strolls and layering",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Structured cotton blend with metal hardware",
+      "fitNotes": "Adjustable straps for chest and neck fit",
+      "weatherUse": "Walking harness for daily city use",
+      "care": "Spot clean straps; air dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -150,7 +146,7 @@ export const products: Product[] = [
     "categories": [
       "accessories"
     ],
-    "description": "Editorial cape with warm citrus tones and fluid drape for city strolls.",
+    "description": "A warm-toned cape with fluid drape — editorial layering for city strolls and soft golden-hour walks.",
     "images": [
       "/products/citrus-grove-cape/01.jpeg",
       "/products/citrus-grove-cape/02.jpeg",
@@ -177,18 +173,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
       "Limited piece",
-      "Soft luxury"
+      "Soft luxury",
+      "Editorial"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Everyday strolls and layering",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Lightweight woven blend",
+      "fitNotes": "Draped cape silhouette — one size with adjustable tie",
+      "weatherUse": "Layering piece for mild weather",
+      "care": "Dry clean or gentle hand wash",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -201,7 +195,7 @@ export const products: Product[] = [
       "raincoat",
       "small-dogs"
     ],
-    "description": "Lightweight waterproof shell tailored for small breeds with playful charm.",
+    "description": "A playful rain shell with a soft silhouette and lightweight coverage for little city walks.",
     "images": [
       "/products/dino-rain-shell/01.jpeg",
       "/products/dino-rain-shell/02.jpeg",
@@ -226,16 +220,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Lightweight shell with soft cotton lining",
+      "fitNotes": "Snug but comfortable on small breeds",
+      "weatherUse": "Water-repellent coverage for drizzle and city rain",
+      "care": "Wipe clean; hand wash when needed",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -247,7 +239,7 @@ export const products: Product[] = [
     "categories": [
       "accessories"
     ],
-    "description": "Classic British styling with wool-blend texture and understated elegance.",
+    "description": "A wool-touch cape with classic British lines — understated layering for polished city walks.",
     "images": [
       "/products/heritage-british-cape/01.jpeg",
       "/products/heritage-british-cape/02.png"
@@ -265,18 +257,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
       "Limited piece",
-      "Soft luxury"
+      "Soft luxury",
+      "Editorial"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Everyday strolls and layering",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Wool-touch blend with cotton lining",
+      "fitNotes": "Classic cape drape with neck closure",
+      "weatherUse": "Layering for cool, dry days",
+      "care": "Dry clean recommended",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -288,7 +278,7 @@ export const products: Product[] = [
     "categories": [
       "raincoat"
     ],
-    "description": "Clean ivory raincoat with seamless lines and quiet sophistication.",
+    "description": "A clean ivory rain layer designed for quiet days, cloudy walks, and elevated everyday styling.",
     "images": [
       "/products/ivory-pure-raincoat/01.jpeg",
       "/products/ivory-pure-raincoat/02.jpeg",
@@ -313,16 +303,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Smooth rain shell with breathable lining",
+      "fitNotes": "Clean straight cut with soft structure",
+      "weatherUse": "Rain-ready for cloudy walks and light drizzle",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -334,7 +322,7 @@ export const products: Product[] = [
     "categories": [
       "raincoat"
     ],
-    "description": "Minimal lavender rain shell with matte waterproof coating.",
+    "description": "A lavender rain shell with a matte finish and calm silhouette — weather-friendly, never loud.",
     "images": [
       "/products/lavender-rain-shell/01.jpeg",
       "/products/lavender-rain-shell/02.jpeg",
@@ -355,16 +343,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Matte rain shell with cotton lining",
+      "fitNotes": "Minimal cut with clean back line",
+      "weatherUse": "Water-repellent for light rain",
+      "care": "Wipe clean; hand wash cold when needed",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -376,7 +362,7 @@ export const products: Product[] = [
     "categories": [
       "accessories"
     ],
-    "description": "Soft mint-lilac wrap with delicate layering for spring editorial looks.",
+    "description": "A mint-lilac wrap with delicate color blocking — a soft spring layer for editorial everyday looks.",
     "images": [
       "/products/mint-lilac-wrap/01.jpeg",
       "/products/mint-lilac-wrap/02.jpeg",
@@ -399,18 +385,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
       "Limited piece",
-      "Soft luxury"
+      "Soft luxury",
+      "Editorial"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Everyday strolls and layering",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Soft woven blend",
+      "fitNotes": "Wrap-style fit with gentle overlap",
+      "weatherUse": "Spring layering for mild weather",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -422,7 +406,7 @@ export const products: Product[] = [
     "categories": [
       "raincoat"
     ],
-    "description": "Water-resistant olive raincoat with structured silhouette for outdoor adventures.",
+    "description": "An olive rain layer with a relaxed field cut — rain-ready for park walks and soft outdoor mornings.",
     "images": [
       "/products/olive-field-raincoat/01.jpeg",
       "/products/olive-field-raincoat/02.jpeg",
@@ -450,16 +434,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Cotton-blend shell with water-repellent finish",
+      "fitNotes": "Relaxed field cut with room for light layering",
+      "weatherUse": "Rain-ready for light showers and damp walks",
+      "care": "Spot clean; hand wash cold and lay flat to dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -472,7 +454,7 @@ export const products: Product[] = [
       "cats",
       "small-dogs"
     ],
-    "description": "Ultra-soft knit with monochrome palette — cozy luxury for petite pets.",
+    "description": "A monochrome soft knit with a gentle hand-feel — quiet luxury for cats and petite companions.",
     "images": [
       "/products/panda-soft-knit/01.jpeg",
       "/products/panda-soft-knit/02.jpeg",
@@ -495,31 +477,29 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
       "Limited piece",
-      "Soft luxury"
+      "Soft luxury",
+      "Editorial"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Cats and petite companions",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Soft-touch knit blend",
+      "fitNotes": "Easy stretch fit for cats and small dogs",
+      "weatherUse": "Cozy layering for cool indoor and outdoor moments",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
     "id": "peter-pan-collar",
     "slug": "peter-pan-collar",
-    "name": "Peter Pan Custom Collar",
+    "name": "Peter Pan Collar Piece",
     "nameZh": "彼得潘",
     "price": 65,
     "categories": [
       "custom",
       "accessories"
     ],
-    "description": "Hand-finished custom collar piece inspired by timeless storytelling.",
+    "description": "A storybook collar piece with hand-finished edges — a small bespoke accent for everyday wear.",
     "images": [
       "/products/peter-pan-collar/01.jpeg",
       "/products/peter-pan-collar/02.jpeg",
@@ -540,18 +520,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
+      "Bespoke",
       "Limited piece",
-      "Soft luxury"
+      "Hand-finished"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Custom sizing via Instagram",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Premium cotton with hand-finished edges",
+      "fitNotes": "Custom sizing available — DM for measurements",
+      "weatherUse": "Everyday accessory, not rainwear",
+      "care": "Spot clean only",
+      "shipping": "Bespoke lead time confirmed on Instagram"
     }
   },
   {
@@ -564,7 +542,7 @@ export const products: Product[] = [
       "custom",
       "small-dogs"
     ],
-    "description": "Playful bespoke ensemble with artisan detailing for statement-making companions.",
+    "description": "A playful bespoke set with quiet charm — made to order for companions who dress with personality.",
     "images": [
       "/products/quack-duck-custom/01.jpeg",
       "/products/quack-duck-custom/02.jpeg",
@@ -588,18 +566,16 @@ export const products: Product[] = [
     "limited": true,
     "stock": 1,
     "tags": [
-      "Hand-finished",
+      "Bespoke",
       "Limited piece",
-      "Soft luxury"
+      "Hand-finished"
     ],
     "details": {
-      "material": "Premium cotton blend",
-      "fabric": "Premium cotton blend with soft-touch finish.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": false,
-      "waterResistance": "Style-first piece — not intended for heavy rain.",
-      "bestFor": "Custom sizing via Instagram",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Custom cotton blend with hand-finished trim",
+      "fitNotes": "Made to order — share measurements via Instagram",
+      "weatherUse": "Style-first piece for everyday wear",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Custom pieces ship in 7–14 business days"
     }
   },
   {
@@ -611,7 +587,7 @@ export const products: Product[] = [
     "categories": [
       "raincoat"
     ],
-    "description": "Full-sleeve amber trench with premium finish and refined tailoring.",
+    "description": "A full-sleeve amber trench with clean lines — rainwear that reads refined, not utilitarian.",
     "images": [
       "/products/sleeved-amber-trench/01.jpeg",
       "/products/sleeved-amber-trench/02.jpeg",
@@ -638,16 +614,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Structured rain shell with cotton lining",
+      "fitNotes": "Full-sleeve trench proportions with clean shoulder line",
+      "weatherUse": "Rain-ready for walks and transit days",
+      "care": "Hand wash cold; hang to dry away from direct heat",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   },
   {
@@ -659,7 +633,7 @@ export const products: Product[] = [
     "categories": [
       "raincoat"
     ],
-    "description": "Sleeveless plum-and-charcoal vest with bonded seams for wet weather.",
+    "description": "A sleeveless plum vest with a sharp, minimal profile — easy layering for drizzle and damp sidewalks.",
     "images": [
       "/products/sleeveless-plum-vest/01.jpeg",
       "/products/sleeveless-plum-vest/02.jpeg",
@@ -683,16 +657,14 @@ export const products: Product[] = [
     "tags": [
       "Water-repellent",
       "Lightweight",
-      "Daily wear"
+      "Limited"
     ],
     "details": {
-      "material": "Bonded shell with cotton lining",
-      "fabric": "Bonded waterproof shell with breathable cotton lining.",
-      "care": "Hand wash cold. Lay flat to dry. Do not bleach.",
-      "waterproof": true,
-      "waterResistance": "Water-repellent finish for light to moderate rain.",
-      "bestFor": "Small dogs and cats on rainy walks",
-      "shipping": "Ships within 3–5 business days from the US."
+      "material": "Bonded shell with soft inner lining",
+      "fitNotes": "Sleeveless vest cut for easy movement",
+      "weatherUse": "Water-repellent for light rain and mist",
+      "care": "Hand wash cold; lay flat to dry",
+      "shipping": "Ships within 3–5 business days from the US"
     }
   }
 ] as Product[];

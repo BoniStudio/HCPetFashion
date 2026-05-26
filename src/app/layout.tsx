@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/layout/GrainOverlay";
 import { Header } from "@/components/layout/Header";
+import { IntroLoader } from "@/components/ui/IntroLoader";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { Providers } from "./providers";
 import "@/styles/globals.css";
+import { siteUrl } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,19 +15,43 @@ const inter = Inter({
   display: "swap",
 });
 
-const manrope = Manrope({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-space",
   display: "swap",
 });
 
-import { siteUrl } from "@/lib/site";
+const title = "HC Pet Fashion — Luxury Pet Rainwear & Boutique Companion Wear";
+const description =
+  "Curated pet rainwear, limited boutique pieces, and custom sizing inquiries for stylish companions.";
 
 export const metadata: Metadata = {
-  title: "HC Pet Fashion — Luxury Pet Rainwear & Bespoke Style",
-  description:
-    "Premium pet fashion for stylish companions. Luxury raincoats, custom pieces, and editorial pet wear from $50–$80.",
+  title: {
+    default: title,
+    template: "%s — HC Pet Fashion",
+  },
+  description,
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: siteUrl },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "HC Pet Fashion",
+    title,
+    description,
+    images: [{ url: "/brand/logo.png", width: 512, height: 512, alt: "HC Pet Fashion" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/brand/logo.png"],
+  },
+  icons: {
+    icon: "/brand/logo.png",
+    apple: "/brand/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -33,9 +60,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
-      <body className="font-sans">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="font-sans cyber-bg grain-overlay">
+        <OrganizationJsonLd />
         <Providers>
+          <IntroLoader />
           <GrainOverlay />
           <Header />
           <main>{children}</main>

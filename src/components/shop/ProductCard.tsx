@@ -25,34 +25,44 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group flex flex-col border border-sand/50 bg-ivory transition-shadow duration-500 hover:shadow-soft"
+      whileHover={{ y: -4 }}
+      className="group flex flex-col overflow-hidden glass-panel transition-shadow duration-500 hover:shadow-glow-sm"
     >
       <Link
         href={`/product/${product.slug}/`}
-        className="relative aspect-[3/4] overflow-hidden bg-sand/25"
+        className="relative aspect-[3/4] overflow-hidden bg-mist/20"
       >
         <SafeImage
           src={product.image}
           alt={product.name}
           fill
-          className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="img-editorial transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           sizes="(max-width: 640px) 100vw, 33vw"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-x-0 bottom-0 flex flex-wrap gap-2 p-4 opacity-0 transition-all duration-500 group-hover:opacity-100">
+          <AddToCartButton product={product} label="Quick Add" />
+          <span className="glass px-4 py-2.5 font-display text-[9px] tracking-[0.18em] text-ivory-warm uppercase">
+            View Details
+          </span>
+        </div>
       </Link>
 
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
             <Link href={`/product/${product.slug}/`}>
-              <h3 className="font-display text-base font-light text-charcoal transition-colors group-hover:text-espresso md:text-lg">
+              <h3 className="font-display text-base font-medium text-ink transition-colors group-hover:text-graphite md:text-lg">
                 {product.name}
               </h3>
             </Link>
-            <p className="mt-1 text-[10px] tracking-[0.08em] text-stone">
+            <p className="mt-1 font-display text-[9px] tracking-[0.14em] text-muted uppercase">
               {formatCategories(product)}
             </p>
           </div>
-          <p className="shrink-0 text-sm text-charcoal">{formatPrice(product.price)}</p>
+          <p className="price-display shrink-0 text-sm text-ink">
+            {formatPrice(product.price)}
+          </p>
         </div>
 
         {product.limited && (
@@ -61,19 +71,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </div>
         )}
 
-        <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-warm">
+        <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-muted">
           {product.description}
         </p>
-
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Link
-            href={`/product/${product.slug}/`}
-            className="border border-charcoal/70 px-5 py-2.5 text-[10px] tracking-[0.18em] text-charcoal uppercase transition-all hover:bg-charcoal hover:text-ivory"
-          >
-            View Details
-          </Link>
-          <AddToCartButton product={product} />
-        </div>
       </div>
     </motion.article>
   );

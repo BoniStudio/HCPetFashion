@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "outline" | "ghost";
+type ButtonVariant = "primary" | "outline" | "ghost" | "glass";
 
 const styles: Record<ButtonVariant, string> = {
   primary:
-    "border border-charcoal bg-charcoal text-ivory hover:bg-transparent hover:text-charcoal",
+    "border border-ink bg-ink text-ivory-warm hover:bg-transparent hover:text-ink shadow-glow-sm hover:shadow-glow",
   outline:
-    "border border-charcoal text-charcoal hover:bg-charcoal hover:text-ivory",
-  ghost: "border border-transparent text-warm hover:text-charcoal",
+    "border border-ink/80 text-ink hover:bg-ink hover:text-ivory-warm",
+  ghost: "border border-transparent text-muted hover:text-ink",
+  glass:
+    "glass border-ink/10 text-ink hover:border-accent/40 hover:shadow-glow-sm",
 };
 
 type ButtonProps = {
@@ -27,7 +29,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base = cn(
-    "inline-flex items-center justify-center px-8 py-3.5 text-[11px] tracking-[0.22em] uppercase transition-all duration-300",
+    "inline-flex items-center justify-center px-8 py-3.5 font-display text-[10px] tracking-[0.22em] uppercase transition-all duration-300",
     styles[variant],
     className
   );

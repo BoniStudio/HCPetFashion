@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
+import { Logo } from "@/components/ui/Logo";
 import { useCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 
@@ -28,28 +29,23 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "border-b border-sand/50 bg-ivory/90 backdrop-blur-md"
+          ? "glass border-b border-ink/5 shadow-soft"
           : "border-b border-transparent bg-transparent"
       )}
     >
-      <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6 md:px-12 lg:px-16">
-        <Link
-          href="/"
-          className="font-display text-xs font-medium tracking-[0.35em] text-charcoal uppercase md:text-sm"
-        >
-          HC Pet Fashion
-        </Link>
+      <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-center justify-between px-6 md:h-20 md:px-12 lg:px-16">
+        <Logo size="md" />
 
         <nav className="hidden items-center gap-10 md:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="relative text-[11px] font-medium tracking-[0.2em] text-warm uppercase transition-colors hover:text-charcoal"
+              className="relative font-display text-[10px] font-medium tracking-[0.22em] text-muted uppercase transition-colors hover:text-ink"
             >
               {item.label}
               {item.href === "/cart/" && count > 0 && (
-                <span className="absolute -right-5 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-charcoal text-[9px] text-ivory">
+                <span className="absolute -right-5 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-ink text-[9px] text-ivory-warm">
                   {count}
                 </span>
               )}
@@ -59,11 +55,12 @@ export function Header() {
 
         <button
           type="button"
-          className="text-[11px] tracking-[0.2em] text-warm uppercase md:hidden"
+          className="flex items-center gap-2 font-display text-[10px] tracking-[0.2em] text-muted uppercase md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-label="Toggle menu"
         >
+          <Logo size="sm" showWordmark={false} href={undefined} />
           Menu
         </button>
       </div>
@@ -74,15 +71,16 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-sand/50 bg-ivory/95 backdrop-blur-md md:hidden"
+            className="overflow-hidden glass border-t border-ink/5 md:hidden"
           >
             <nav className="flex flex-col gap-6 px-6 py-8">
+              <Logo size="md" />
               {nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[11px] tracking-[0.25em] text-charcoal uppercase"
+                  className="font-display text-[11px] tracking-[0.25em] text-ink uppercase"
                 >
                   {item.label}
                   {item.href === "/cart/" && count > 0 ? ` (${count})` : ""}

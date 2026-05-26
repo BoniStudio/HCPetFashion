@@ -9,9 +9,9 @@ const DOCS_DIR = path.join(ROOT, "docs");
 
 const REQUIRED_MARKERS = [
   "HC Pet Fashion",
-  "Crafted for",
-  "Rainy Days",
-  "Luxury Pet Fashion",
+  "Rainwear for",
+  "Little Storms",
+  "Cyber Boutique",
 ];
 
 const FORBIDDEN_MARKERS = [

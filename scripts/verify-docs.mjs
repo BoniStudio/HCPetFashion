@@ -6,8 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS = path.join(__dirname, "..", "docs");
 
 const checks = [
-  { file: "index.html", must: ["HC Pet Fashion", "Crafted for", "Shop", "Cart"] },
-  { file: "shop/index.html", must: ["Shop", "Raincoat"] },
+  { file: "index.html", must: ["HC Pet Fashion", "Rainwear for", "Shop", "Cart"] },
+  { file: "shop/index.html", must: ["Collection", "Limited pet fashion"] },
   { file: "contact/index.html", must: ["Contact"] },
   { file: "cart/index.html", must: ["Cart"] },
 ];

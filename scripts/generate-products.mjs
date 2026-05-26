@@ -15,7 +15,7 @@ const FOLDER_META = {
     nameEn: "Olive Field Raincoat",
     categories: ["raincoat"],
     description:
-      "Water-resistant olive raincoat with structured silhouette for outdoor adventures.",
+      "An olive rain layer with a relaxed field cut — rain-ready for park walks and soft outdoor mornings.",
     price: 68,
     featured: true,
     hero: true,
@@ -24,7 +24,7 @@ const FOLDER_META = {
     nameEn: "Quack Duck Custom Set",
     categories: ["custom", "small-dogs"],
     description:
-      "Playful bespoke ensemble with artisan detailing for statement-making companions.",
+      "A playful bespoke set with quiet charm — made to order for companions who dress with personality.",
     price: 72,
     featured: true,
   },
@@ -32,7 +32,7 @@ const FOLDER_META = {
     nameEn: "Dino Rain Shell",
     categories: ["raincoat", "small-dogs"],
     description:
-      "Lightweight waterproof shell tailored for small breeds with playful charm.",
+      "A playful rain shell with a soft silhouette and lightweight coverage for little city walks.",
     price: 58,
     featured: true,
     hero: true,
@@ -41,16 +41,16 @@ const FOLDER_META = {
     nameEn: "Sleeved Amber Trench",
     categories: ["raincoat"],
     description:
-      "Full-sleeve amber trench with premium finish and refined tailoring.",
+      "A full-sleeve amber trench with clean lines — rainwear that reads refined, not utilitarian.",
     price: 75,
     featured: true,
     hero: true,
   },
   彼得潘: {
-    nameEn: "Peter Pan Custom Collar",
+    nameEn: "Peter Pan Collar Piece",
     categories: ["custom", "accessories"],
     description:
-      "Hand-finished custom collar piece inspired by timeless storytelling.",
+      "A storybook collar piece with hand-finished edges — a small bespoke accent for everyday wear.",
     price: 65,
     featured: false,
   },
@@ -58,7 +58,7 @@ const FOLDER_META = {
     nameEn: "Sleeveless Plum Rain Vest",
     categories: ["raincoat"],
     description:
-      "Sleeveless plum-and-charcoal vest with bonded seams for wet weather.",
+      "A sleeveless plum vest with a sharp, minimal profile — easy layering for drizzle and damp sidewalks.",
     price: 62,
     featured: true,
   },
@@ -66,7 +66,7 @@ const FOLDER_META = {
     nameEn: "Citrus Grove Cape",
     categories: ["accessories"],
     description:
-      "Editorial cape with warm citrus tones and fluid drape for city strolls.",
+      "A warm-toned cape with fluid drape — editorial layering for city strolls and soft golden-hour walks.",
     price: 70,
     featured: true,
   },
@@ -74,7 +74,7 @@ const FOLDER_META = {
     nameEn: "Panda Soft Knit",
     categories: ["cats", "small-dogs"],
     description:
-      "Ultra-soft knit with monochrome palette — cozy luxury for petite pets.",
+      "A monochrome soft knit with a gentle hand-feel — quiet luxury for cats and petite companions.",
     price: 55,
     featured: true,
   },
@@ -82,7 +82,7 @@ const FOLDER_META = {
     nameEn: "Lavender Rain Shell",
     categories: ["raincoat"],
     description:
-      "Minimal lavender rain shell with matte waterproof coating.",
+      "A lavender rain shell with a matte finish and calm silhouette — weather-friendly, never loud.",
     price: 60,
     featured: false,
   },
@@ -90,7 +90,7 @@ const FOLDER_META = {
     nameEn: "Ivory Pure Raincoat",
     categories: ["raincoat"],
     description:
-      "Clean ivory raincoat with seamless lines and quiet sophistication.",
+      "A clean ivory rain layer designed for quiet days, cloudy walks, and elevated everyday styling.",
     price: 64,
     featured: true,
     hero: true,
@@ -99,7 +99,7 @@ const FOLDER_META = {
     nameEn: "British Stroll Harness",
     categories: ["accessories"],
     description:
-      "Heritage-inspired walking harness with tailored British proportions.",
+      "A heritage walking harness with tailored proportions — companion wear with a British edit.",
     price: 78,
     featured: true,
   },
@@ -107,7 +107,7 @@ const FOLDER_META = {
     nameEn: "Heritage British Cape",
     categories: ["accessories"],
     description:
-      "Classic British styling with wool-blend texture and understated elegance.",
+      "A wool-touch cape with classic British lines — understated layering for polished city walks.",
     price: 80,
     featured: true,
   },
@@ -115,7 +115,7 @@ const FOLDER_META = {
     nameEn: "Mint Lilac Wrap",
     categories: ["accessories"],
     description:
-      "Soft mint-lilac wrap with delicate layering for spring editorial looks.",
+      "A mint-lilac wrap with delicate color blocking — a soft spring layer for editorial everyday looks.",
     price: 58,
     featured: true,
   },
@@ -123,9 +123,110 @@ const FOLDER_META = {
     nameEn: "Baker Street Trench",
     categories: ["custom", "accessories"],
     description:
-      "Detective-inspired trench with bespoke touches and urban sophistication.",
+      "A detective-inspired trench with bespoke details — urban companion wear with quiet drama.",
     price: 76,
     featured: true,
+  },
+};
+
+const PRODUCT_DETAILS = {
+  军绿雨衣: {
+    material: "Cotton-blend shell with water-repellent finish",
+    fitNotes: "Relaxed field cut with room for light layering",
+    weatherUse: "Rain-ready for light showers and damp walks",
+    care: "Spot clean; hand wash cold and lay flat to dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  噗鸡鸭: {
+    material: "Custom cotton blend with hand-finished trim",
+    fitNotes: "Made to order — share measurements via Instagram",
+    weatherUse: "Style-first piece for everyday wear",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Custom pieces ship in 7–14 business days",
+  },
+  小恐龙雨衣: {
+    material: "Lightweight shell with soft cotton lining",
+    fitNotes: "Snug but comfortable on small breeds",
+    weatherUse: "Water-repellent coverage for drizzle and city rain",
+    care: "Wipe clean; hand wash when needed",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  带袖黄风衣: {
+    material: "Structured rain shell with cotton lining",
+    fitNotes: "Full-sleeve trench proportions with clean shoulder line",
+    weatherUse: "Rain-ready for walks and transit days",
+    care: "Hand wash cold; hang to dry away from direct heat",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  彼得潘: {
+    material: "Premium cotton with hand-finished edges",
+    fitNotes: "Custom sizing available — DM for measurements",
+    weatherUse: "Everyday accessory, not rainwear",
+    care: "Spot clean only",
+    shipping: "Bespoke lead time confirmed on Instagram",
+  },
+  无袖紫黑雨衣: {
+    material: "Bonded shell with soft inner lining",
+    fitNotes: "Sleeveless vest cut for easy movement",
+    weatherUse: "Water-repellent for light rain and mist",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  橘子海: {
+    material: "Lightweight woven blend",
+    fitNotes: "Draped cape silhouette — one size with adjustable tie",
+    weatherUse: "Layering piece for mild weather",
+    care: "Dry clean or gentle hand wash",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  熊猫: {
+    material: "Soft-touch knit blend",
+    fitNotes: "Easy stretch fit for cats and small dogs",
+    weatherUse: "Cozy layering for cool indoor and outdoor moments",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  紫色雨衣: {
+    material: "Matte rain shell with cotton lining",
+    fitNotes: "Minimal cut with clean back line",
+    weatherUse: "Water-repellent for light rain",
+    care: "Wipe clean; hand wash cold when needed",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  纯色白澄雨衣: {
+    material: "Smooth rain shell with breathable lining",
+    fitNotes: "Clean straight cut with soft structure",
+    weatherUse: "Rain-ready for cloudy walks and light drizzle",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  英伦漫步: {
+    material: "Structured cotton blend with metal hardware",
+    fitNotes: "Adjustable straps for chest and neck fit",
+    weatherUse: "Walking harness for daily city use",
+    care: "Spot clean straps; air dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  英伦风: {
+    material: "Wool-touch blend with cotton lining",
+    fitNotes: "Classic cape drape with neck closure",
+    weatherUse: "Layering for cool, dry days",
+    care: "Dry clean recommended",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  薄荷紫: {
+    material: "Soft woven blend",
+    fitNotes: "Wrap-style fit with gentle overlap",
+    weatherUse: "Spring layering for mild weather",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Ships within 3–5 business days from the US",
+  },
+  贝克街: {
+    material: "Custom trench shell with cotton lining",
+    fitNotes: "Bespoke fit inquiry via Instagram",
+    weatherUse: "Weather-friendly layering with rain-ready option",
+    care: "Hand wash cold; lay flat to dry",
+    shipping: "Custom lead time confirmed on Instagram",
   },
 };
 
@@ -201,13 +302,7 @@ function scanProducts() {
     };
 
     const isRaincoat = meta.categories.includes("raincoat");
-    const bestFor = isRaincoat
-      ? "Small dogs and cats on rainy walks"
-      : meta.categories.includes("cats")
-        ? "Cats and petite companions"
-        : meta.categories.includes("custom")
-          ? "Custom sizing via Instagram"
-          : "Everyday strolls and layering";
+    const customDetails = PRODUCT_DETAILS[folderName];
 
     const slug = slugify(folderName);
     const productDir = path.join(PUBLIC_DIR, slug);
@@ -240,22 +335,18 @@ function scanProducts() {
       limited: true,
       stock: 1,
       tags: isRaincoat
-        ? ["Water-repellent", "Lightweight", "Daily wear"]
-        : ["Hand-finished", "Limited piece", "Soft luxury"],
-      details: {
-        material: isRaincoat
-          ? "Bonded shell with cotton lining"
-          : "Premium cotton blend",
-        fabric: isRaincoat
-          ? "Bonded waterproof shell with breathable cotton lining."
-          : "Premium cotton blend with soft-touch finish.",
-        care: "Hand wash cold. Lay flat to dry. Do not bleach.",
-        waterproof: isRaincoat,
-        waterResistance: isRaincoat
-          ? "Water-repellent finish for light to moderate rain."
-          : "Style-first piece — not intended for heavy rain.",
-        bestFor,
-        shipping: "Ships within 3–5 business days from the US.",
+        ? ["Water-repellent", "Lightweight", "Limited"]
+        : meta.categories.includes("custom")
+          ? ["Bespoke", "Limited piece", "Hand-finished"]
+          : ["Limited piece", "Soft luxury", "Editorial"],
+      details: customDetails ?? {
+        material: "Premium cotton blend",
+        fitNotes: "Everyday companion fit",
+        weatherUse: isRaincoat
+          ? "Water-repellent for light rain"
+          : "Style-first layering",
+        care: "Hand wash cold; lay flat to dry",
+        shipping: "Ships within 3–5 business days from the US",
       },
     });
   }
@@ -288,21 +379,21 @@ export type Product = {
   tags: string[];
   details: {
     material: string;
-    fabric: string;
+    fitNotes: string;
+    weatherUse: string;
     care: string;
-    waterproof: boolean;
-    waterResistance: string;
-    bestFor: string;
     shipping: string;
+    bestFor?: string;
+    waterResistance?: string;
   };
 };
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  raincoat: "Raincoat",
-  custom: "Custom",
-  "small-dogs": "Small Dogs",
-  cats: "Cats",
-  accessories: "Accessories",
+  raincoat: "Rainwear",
+  custom: "Bespoke",
+  "small-dogs": "Small Companions",
+  cats: "Feline Edit",
+  accessories: "Companion Wear",
 };
 
 export const SHOP_FILTER_CATEGORIES = [

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CategoryFilter } from "@/components/shop/CategoryFilter";
 import { ProductCard } from "@/components/shop/ProductCard";
+import { Marquee } from "@/components/ui/Marquee";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   filterProducts,
@@ -41,40 +42,45 @@ export function ShopPageClient({ allProducts }: ShopPageClientProps) {
   }, [allProducts, category, query, sort]);
 
   return (
-    <div className="pt-20">
+    <div className="pt-[4.5rem] md:pt-20">
+      <Marquee
+        items={["RAINWEAR", "BESPOKE", "LIMITED", "COMPANION WEAR"]}
+        className="mt-0"
+      />
+
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-16 lg:py-24">
         <Reveal>
-          <p className="text-[10px] tracking-[0.35em] text-stone uppercase">
+          <p className="font-display text-[10px] tracking-[0.38em] text-muted uppercase">
             Collection
           </p>
-          <h1 className="mt-4 font-display text-4xl font-light text-charcoal md:text-5xl">
-            Shop
+          <h1 className="mt-4 font-display text-4xl font-medium tracking-[-0.03em] text-ink md:text-6xl">
+            Collection
           </h1>
-          <p className="mt-6 max-w-lg text-sm text-warm">
-            Rainwear and bespoke pieces — most styles are one-of-one. Message us
-            on Instagram for fit help.
+          <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted">
+            Limited pet fashion pieces curated for rain, city walks, and soft
+            everyday wear.
           </p>
         </Reveal>
 
-        <Reveal delay={0.08} className="mt-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <Reveal delay={0.08} className="mt-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <input
             type="search"
-            placeholder="Search by name or category"
+            placeholder="Search collection…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full max-w-md border-b border-sand bg-transparent py-3 text-sm text-charcoal outline-none placeholder:text-stone focus:border-charcoal"
+            className="input-future max-w-md rounded-sm"
             aria-label="Search products"
           />
-          <label className="flex items-center gap-3 text-[11px] tracking-[0.15em] text-stone uppercase">
+          <label className="flex items-center gap-3 font-display text-[10px] tracking-[0.18em] text-muted uppercase">
             Sort
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
-              className="border border-sand/60 bg-ivory px-4 py-2 text-[11px] tracking-[0.1em] text-charcoal normal-case outline-none focus:border-charcoal"
+              className="input-future w-auto min-w-[180px] rounded-sm py-2.5 normal-case"
             >
               <option value="featured">Featured</option>
-              <option value="price-asc">Price Low to High</option>
-              <option value="price-desc">Price High to Low</option>
+              <option value="price-asc">Price — Low to High</option>
+              <option value="price-desc">Price — High to Low</option>
             </select>
           </label>
         </Reveal>
@@ -84,11 +90,11 @@ export function ShopPageClient({ allProducts }: ShopPageClientProps) {
         </Reveal>
 
         {filtered.length === 0 ? (
-          <p className="mt-20 text-center font-display text-xl font-light text-stone">
-            No products found.
+          <p className="mt-20 text-center font-display text-xl font-light text-muted">
+            No pieces match your search.
           </p>
         ) : (
-          <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {filtered.map((product, i) => (
               <ProductCard key={product.slug} product={product} index={i} />
             ))}

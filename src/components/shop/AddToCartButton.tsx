@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
+import { useToast } from "@/lib/toast";
 import type { Product } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
@@ -19,20 +20,22 @@ export function AddToCartButton({
   label = "Add to Cart",
 }: AddToCartButtonProps) {
   const { addItem } = useCart();
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const { toast } = useToast();
+  const [busy, setBusy] = useState(false);
   const chosenSize = size ?? product.sizes[1] ?? product.sizes[0];
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (busy) return;
+    setBusy(true);
     const result = addItem(product, chosenSize, 1);
     if (result.ok) {
-      setFeedback("Added");
-      setTimeout(() => setFeedback(null), 1800);
+      toast("Added to cart");
     } else {
-      setFeedback(result.message ?? "Unavailable");
-      setTimeout(() => setFeedback(null), 2500);
+      toast(result.message ?? "Unavailable");
     }
+    setTimeout(() => setBusy(false), 400);
   };
 
   return (
@@ -40,11 +43,11 @@ export function AddToCartButton({
       type="button"
       onClick={handleClick}
       className={cn(
-        "border border-charcoal/80 px-4 py-2.5 text-[10px] tracking-[0.18em] text-charcoal uppercase transition-all duration-300 hover:bg-charcoal hover:text-ivory",
+        "border border-ink/80 bg-ink/90 px-4 py-2.5 font-display text-[9px] tracking-[0.18em] text-ivory-warm uppercase backdrop-blur-sm transition-all duration-300 hover:bg-ink hover:shadow-glow-sm",
         className
       )}
     >
-      {feedback ?? label}
+      {label}
     </button>
   );
 }

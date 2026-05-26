@@ -3,49 +3,90 @@
 @tailwind utilities;
 
 :root {
-  --color-cream: #f7f4ef;
-  --color-ivory: #faf8f5;
-  --color-charcoal: #3d3a36;
-  --color-stone: #9a948a;
+  --font-display: var(--font-space), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --color-bg: #f4f1ec;
+  --color-ink: #111111;
+  --color-muted: #6b6560;
+  --color-accent: #c8e0b8;
+  --color-graphite: #2c2c2c;
+  --color-mist: #dde8ea;
+  --color-silver: #d8d1c6;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
-  @apply bg-ivory text-charcoal antialiased;
+  @apply antialiased;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
 ::selection {
-  @apply bg-sand text-charcoal;
+  background: rgba(200, 224, 184, 0.45);
+  color: var(--color-ink);
 }
 
-/* Editorial image treatment */
-.img-editorial {
-  @apply object-cover object-center;
+/* Futuristic grid background */
+.cyber-bg {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 0%, rgba(221, 232, 234, 0.55), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(200, 224, 184, 0.2), transparent 50%),
+    linear-gradient(rgba(17, 17, 17, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
 }
 
-/* Subtle grain overlay */
 .grain-overlay::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
 }
 
-/* Glass blur utility */
 .glass {
-  @apply bg-ivory/70 backdrop-blur-md border border-sand/40;
+  @apply border border-white/40 bg-white/30 backdrop-blur-xl;
 }
 
-/* Hide scrollbar for carousel */
+.glass-dark {
+  @apply border border-white/10 bg-graphite/80 backdrop-blur-xl text-ivory-warm;
+}
+
+.glass-accent {
+  @apply border border-accent/30 bg-white/50 backdrop-blur-xl shadow-glow;
+}
+
+.glass-panel {
+  @apply rounded-sm border border-ink/5 bg-gradient-to-br from-white/50 to-white/20 backdrop-blur-md;
+}
+
+.img-editorial {
+  @apply object-cover object-center;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -54,18 +95,48 @@ body {
   scrollbar-width: none;
 }
 
-/* Smooth image reveal */
-@keyframes imageReveal {
+.input-future {
+  @apply w-full border border-ink/10 bg-white/40 px-4 py-3 text-sm text-ink outline-none backdrop-blur-sm transition-colors placeholder:text-muted focus:border-accent/60 focus:ring-1 focus:ring-accent/30;
+}
+
+.pill-filter {
+  @apply rounded-full border border-ink/10 bg-white/30 px-4 py-2 text-[10px] tracking-[0.18em] uppercase backdrop-blur-sm transition-all;
+}
+
+.pill-filter-active {
+  @apply border-ink/20 bg-ink text-ivory-warm shadow-glow;
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
   from {
-    clip-path: inset(0 100% 0 0);
-    opacity: 0.6;
+    transform: translateX(0);
   }
   to {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
+    transform: translateX(-50%);
   }
 }
 
-.reveal-image {
-  animation: imageReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes glow-drift {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate(2%, -1%) scale(1.05);
+  }
+}
+
+.glow-orb {
+  animation: glow-drift 12s ease-in-out infinite;
+}
+
+.price-display {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }

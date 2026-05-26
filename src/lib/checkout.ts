@@ -42,9 +42,8 @@ export async function createCheckoutSession(
     }
   }
 
-  // Static GitHub Pages — no serverless checkout yet
   return { ok: false, reason: "static_hosting" };
 }
 
 export const CHECKOUT_PREP_MESSAGE =
-  "Secure checkout is being prepared. For now, please contact us on Instagram to complete your order.";
+  "Secure checkout is being finalized. For now, send your selection to us on Instagram for the fastest confirmation.";

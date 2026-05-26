@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/copy-social.mjs && node scripts/generate-products.mjs",
+    "prebuild": "node scripts/copy-brand.mjs && node scripts/copy-social.mjs && node scripts/generate-products.mjs",
     "build": "cross-env NODE_ENV=production next build && node scripts/copy-to-docs.mjs && node scripts/verify-docs.mjs",
     "build:check": "node scripts/verify-docs.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs",
     "serve:docs": "npx --yes serve@14 docs -l 5080",
     "start": "next start",
     "lint": "next lint",
@@ -27,6 +28,7 @@
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
     "postcss": "^8.4.49",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   }

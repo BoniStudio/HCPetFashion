@@ -23,17 +23,15 @@ type CategoryFilterProps = {
 
 export function CategoryFilter({ active, onChange }: CategoryFilterProps) {
   return (
-    <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-sand/60 pb-8">
+    <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2 md:flex-wrap">
       {SHOP_FILTER_CATEGORIES.map((id) => (
         <button
           key={id}
           type="button"
           onClick={() => onChange(id)}
           className={cn(
-            "text-[11px] tracking-[0.2em] uppercase transition-colors",
-            active === id
-              ? "text-charcoal border-b border-charcoal pb-1"
-              : "text-stone hover:text-warm"
+            "pill-filter shrink-0",
+            active === id && "pill-filter-active"
           )}
         >
           {labels[id]}
