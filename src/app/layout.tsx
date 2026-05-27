@@ -7,7 +7,7 @@ import { IntroLoader } from "@/components/ui/IntroLoader";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { Providers } from "./providers";
 import "@/styles/globals.css";
-import { siteUrl } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,16 +31,23 @@ export const metadata: Metadata = {
     template: "%s — HC Pet Fashion",
   },
   description,
-  metadataBase: new URL(siteUrl),
-  alternates: { canonical: siteUrl },
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: SITE_URL },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
+    url: SITE_URL,
     siteName: "HC Pet Fashion",
     title,
     description,
-    images: [{ url: "/brand/logo.png", width: 512, height: 512, alt: "HC Pet Fashion" }],
+    images: [
+      {
+        url: "/brand/logo.png",
+        width: 512,
+        height: 512,
+        alt: "HC Pet Fashion",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -61,6 +68,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+      </head>
       <body className="font-sans cyber-bg grain-overlay">
         <OrganizationJsonLd />
         <Providers>

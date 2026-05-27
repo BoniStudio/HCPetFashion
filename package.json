@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/copy-brand.mjs && node scripts/copy-social.mjs && node scripts/generate-products.mjs",
-    "build": "cross-env NODE_ENV=production next build && node scripts/copy-to-docs.mjs && node scripts/verify-docs.mjs",
+    "build": "cross-env NODE_ENV=production next build && node scripts/copy-to-docs.mjs && node scripts/verify-docs.mjs && node scripts/verify-security.mjs",
     "build:check": "node scripts/verify-docs.mjs",
     "optimize-images": "node scripts/optimize-images.mjs",
     "serve:docs": "npx --yes serve@14 docs -l 5080",

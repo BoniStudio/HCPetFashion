@@ -9,7 +9,9 @@ export function OrganizationJsonLd() {
     logo: `${SITE_URL}/brand/logo.png`,
     description:
       "Curated pet rainwear, limited boutique pieces, and custom sizing inquiries for stylish companions.",
-    sameAs: ["https://www.instagram.com/hcpetfashion/"],
+    sameAs: [
+      "https://www.instagram.com/hcpetfashion/",
+    ],
   };
 
   return (

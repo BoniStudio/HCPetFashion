@@ -5,14 +5,23 @@
 export const CUSTOM_DOMAIN = "hcpetfashion.red";
 export const SITE_URL = "https://hcpetfashion.red";
 
+/** Always HTTPS — used for metadata, canonical, JSON-LD, and static export. */
+export const siteUrl = SITE_URL;
+
 /** Always empty — custom domain serves from site root */
 export const basePath = "";
 
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.NODE_ENV === "production"
-    ? SITE_URL
-    : "http://localhost:3000");
+/**
+ * Build absolute HTTPS URL for metadata and structured data.
+ */
+export function absoluteUrl(path: string): string {
+  if (!path) return `${SITE_URL}/`;
+  if (path.startsWith("https://")) return path;
+  if (path.startsWith("http://")) {
+    return path.replace(/^http:\/\//i, "https://");
+  }
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
 
 /**
  * Asset path helper for static export.
@@ -20,6 +29,8 @@ export const siteUrl =
  */
 export function withBasePath(path: string): string {
   if (!path) return "/";
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path.replace(/^http:\/\//i, "https://");
+  }
   return path.startsWith("/") ? path : `/${path}`;
 }

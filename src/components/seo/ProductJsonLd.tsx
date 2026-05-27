@@ -1,5 +1,5 @@
 import type { Product } from "@/lib/products";
-import { SITE_URL } from "@/lib/site";
+import { absoluteUrl } from "@/lib/site";
 
 type ProductJsonLdProps = {
   product: Product;
@@ -11,11 +11,11 @@ export function ProductJsonLd({ product }: ProductJsonLdProps) {
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.images.map((img) => `${SITE_URL}${img}`),
+    image: product.images.map((img) => absoluteUrl(img)),
     sku: product.id,
     offers: {
       "@type": "Offer",
-      url: `${SITE_URL}/product/${product.slug}/`,
+      url: absoluteUrl(`/product/${product.slug}/`),
       priceCurrency: "USD",
       price: product.price,
       availability:
