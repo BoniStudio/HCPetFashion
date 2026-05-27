@@ -4,9 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
-import { buildOrderMailtoBody, buildOrderSummary } from "@/lib/order-summary";
-import { CHECKOUT_PREP_MESSAGE } from "@/lib/checkout";
-import { buildOrderInquiryMailto, INSTAGRAM_URL } from "@/lib/constants";
+import {
+  CHECKOUT_PREP_MESSAGE,
+  LIMITED_PIECES_MESSAGE,
+  NO_ACCOUNT_MESSAGE,
+  STRIPE_AMOUNT_REMINDER,
+} from "@/lib/checkout";
+import { STRIPE_PAYMENT_LINK } from "@/lib/constants";
+import { buildOrderSummary } from "@/lib/order-summary";
 import { formatPrice } from "@/lib/utils";
 
 type CheckoutModalProps = {
@@ -15,12 +20,17 @@ type CheckoutModalProps = {
 };
 
 export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
-  const { items, total } = useCart();
+  const { items, subtotal, shippingEstimate, total } = useCart();
   const [copied, setCopied] = useState(false);
-  const summary = buildOrderSummary(items, total);
-  const emailHref = useMemo(
-    () => buildOrderInquiryMailto(buildOrderMailtoBody(items, total)),
-    [items, total]
+
+  const totals = useMemo(
+    () => ({ subtotal, shipping: shippingEstimate, total }),
+    [subtotal, shippingEstimate, total]
+  );
+
+  const summary = useMemo(
+    () => buildOrderSummary(items, totals),
+    [items, totals]
   );
 
   const handleCopy = async () => {
@@ -51,39 +61,83 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             className="glass fixed left-1/2 top-1/2 z-[201] max-h-[90vh] w-[92vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto p-8 md:p-10"
           >
             <p className="font-display text-[10px] tracking-[0.32em] text-muted uppercase">
-              Checkout Inquiry
+              Stripe Checkout
             </p>
             <p className="mt-6 text-sm leading-relaxed text-muted">
               {CHECKOUT_PREP_MESSAGE}
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-muted/90">
-              Because many pieces are limited to one item, we confirm
-              availability before payment.
-            </p>
 
             {items.length > 0 && (
-              <div className="mt-8 rounded-sm border border-ink/10 bg-white/30 p-4">
-                <p className="font-display text-[9px] tracking-[0.2em] text-muted uppercase">
-                  Order summary
-                </p>
-                <pre className="mt-3 max-h-40 overflow-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-ink">
-                  {summary}
-                </pre>
-                <p className="price-display mt-3 text-sm font-medium text-ink">
-                  Total {formatPrice(total)}
-                </p>
-              </div>
+              <>
+                <div className="mt-8 rounded-sm border border-accent/40 bg-accent/15 p-5 text-center">
+                  <p className="font-display text-[9px] tracking-[0.22em] text-muted uppercase">
+                    Estimated Total
+                  </p>
+                  <p className="price-display mt-2 text-3xl font-medium text-ink">
+                    {formatPrice(total)}
+                  </p>
+                  <p className="mt-3 text-xs leading-relaxed text-muted">
+                    {STRIPE_AMOUNT_REMINDER}
+                  </p>
+                </div>
+
+                <div className="mt-6 rounded-sm border border-ink/10 bg-white/30 p-4">
+                  <p className="font-display text-[9px] tracking-[0.2em] text-muted uppercase">
+                    Your selection
+                  </p>
+                  <ul className="mt-4 space-y-4">
+                    {items.map((item) => (
+                      <li
+                        key={`${item.productId}-${item.size}`}
+                        className="border-b border-ink/5 pb-4 last:border-0 last:pb-0"
+                      >
+                        <p className="text-sm font-medium text-ink">{item.name}</p>
+                        <p className="mt-1 text-xs text-muted">
+                          Size {item.size} · Qty {item.quantity} ·{" "}
+                          {formatPrice(item.price * item.quantity)}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 space-y-2 border-t border-ink/10 pt-4 text-sm">
+                    <div className="flex justify-between text-muted">
+                      <span>Subtotal</span>
+                      <span className="price-display text-ink">
+                        {formatPrice(subtotal)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-muted">
+                      <span>Shipping</span>
+                      <span className="price-display text-ink">
+                        {shippingEstimate === 0
+                          ? "Complimentary"
+                          : formatPrice(shippingEstimate)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between font-medium text-ink">
+                      <span>Estimated Total</span>
+                      <span className="price-display">
+                        {formatPrice(total)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
 
+            <p className="mt-6 text-xs leading-relaxed text-muted">
+              {NO_ACCOUNT_MESSAGE}
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-muted/90">
+              {LIMITED_PIECES_MESSAGE}
+            </p>
+
             <div className="mt-8 flex flex-col gap-3">
-              <Button href={emailHref} variant="primary">
-                Email order inquiry
+              <Button href={STRIPE_PAYMENT_LINK} external variant="primary">
+                Open Stripe Checkout
               </Button>
-              <Button href={INSTAGRAM_URL} external variant="glass">
-                Message us on Instagram
-              </Button>
-              <Button onClick={handleCopy} variant="outline">
-                {copied ? "Copied" : "Copy order summary"}
+              <Button onClick={handleCopy} variant="glass">
+                {copied ? "Copied" : "Copy Order Summary"}
               </Button>
               <Button onClick={onClose} variant="ghost">
                 Continue browsing

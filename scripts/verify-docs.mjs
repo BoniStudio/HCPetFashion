@@ -9,7 +9,7 @@ const checks = [
   { file: "index.html", must: ["HC Pet Fashion", "Rainwear", "Shop", "Cart"] },
   { file: "shop/index.html", must: ["Collection", "Limited pet fashion"] },
   { file: "contact/index.html", must: ["Contact", "hc.pet.fashion@outlook.com"] },
-  { file: "cart/index.html", must: ["Cart"] },
+  { file: "cart/index.html", must: ["Cart", "Proceed to Stripe Checkout"] },
 ];
 
 let ok = true;

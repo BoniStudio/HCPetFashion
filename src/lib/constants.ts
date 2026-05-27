@@ -1,5 +1,8 @@
 export const CONTACT_EMAIL = "hc.pet.fashion@outlook.com";
 
+export const STRIPE_PAYMENT_LINK =
+  "https://buy.stripe.com/fZufZa2KpfOS6t1efGbAs03";
+
 export const INSTAGRAM_URL =
   "https://www.instagram.com/hcpetfashion?igsh=NHZhY2x6ZnJmMHBv";
 

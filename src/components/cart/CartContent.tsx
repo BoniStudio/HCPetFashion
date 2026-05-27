@@ -8,12 +8,18 @@ import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
-import { createCheckoutSession } from "@/lib/checkout";
+import {
+  LIMITED_PIECES_MESSAGE,
+  NO_ACCOUNT_MESSAGE,
+  STRIPE_MANUAL_AMOUNT_NOTE,
+} from "@/lib/checkout";
+import { useToast } from "@/lib/toast";
 import { formatPrice } from "@/lib/utils";
 
 export function CartContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { toast } = useToast();
   const {
     items,
     removeItem,
@@ -24,7 +30,6 @@ export function CartContent() {
     total,
   } = useCart();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
     if (searchParams.get("checkout") === "1" && items.length > 0) {
@@ -33,13 +38,9 @@ export function CartContent() {
     }
   }, [searchParams, items.length, router]);
 
-  const handleCheckout = async () => {
-    setCheckingOut(true);
-    const result = await createCheckoutSession(items);
-    setCheckingOut(false);
-
-    if (result.ok) {
-      window.location.href = result.url;
+  const handleCheckout = () => {
+    if (items.length === 0) {
+      toast("Your cart is empty");
       return;
     }
     setCheckoutOpen(true);
@@ -162,7 +163,7 @@ export function CartContent() {
                 </span>
               </div>
               <div className="flex justify-between text-muted">
-                <span>Shipping estimate</span>
+                <span>Shipping</span>
                 <span className="price-display text-ink">
                   {shippingEstimate === 0
                     ? "Complimentary"
@@ -170,24 +171,41 @@ export function CartContent() {
                 </span>
               </div>
               <div className="flex justify-between border-t border-ink/10 pt-4 text-ink">
-                <span className="font-medium">Total</span>
+                <span className="font-medium">Estimated Total</span>
                 <span className="price-display font-medium">
                   {formatPrice(total)}
                 </span>
               </div>
             </div>
-            <p className="mt-4 text-xs text-muted">
+
+            <div className="mt-6 rounded-sm border border-accent/40 bg-accent/15 p-4">
+              <p className="font-display text-[9px] tracking-[0.22em] text-muted uppercase">
+                Amount to enter on Stripe
+              </p>
+              <p className="price-display mt-2 text-2xl font-medium text-ink">
+                {formatPrice(total)}
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-muted">
+                {STRIPE_MANUAL_AMOUNT_NOTE}
+              </p>
+            </div>
+
+            <p className="mt-4 text-xs leading-relaxed text-muted">
               Free US shipping on orders over $75.
             </p>
+            <p className="mt-3 text-xs leading-relaxed text-muted">
+              {NO_ACCOUNT_MESSAGE}
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-muted/90">
+              {LIMITED_PIECES_MESSAGE}
+            </p>
+
             <button
               type="button"
               onClick={handleCheckout}
-              disabled={checkingOut}
-              className="mt-8 w-full border border-ink bg-ink py-4 font-display text-[10px] tracking-[0.25em] text-ivory-warm uppercase transition-all hover:bg-transparent hover:text-ink disabled:opacity-50"
+              className="mt-8 w-full border border-ink bg-ink py-4 font-display text-[10px] tracking-[0.25em] text-ivory-warm uppercase transition-all hover:bg-transparent hover:text-ink"
             >
-              {checkingOut
-                ? "Processing…"
-                : "Request Checkout via Instagram"}
+              Proceed to Stripe Checkout
             </button>
             <button
               type="button"

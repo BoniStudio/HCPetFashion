@@ -9,6 +9,7 @@ import { LimitedBadge } from "@/components/ui/LimitedBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { useCart } from "@/lib/cart";
 import { INSTAGRAM_URL, buildProductInquiryMailto } from "@/lib/constants";
+import { LIMITED_PIECES_MESSAGE } from "@/lib/checkout";
 import type { Product } from "@/lib/products";
 import { formatCategories } from "@/lib/product-utils";
 import { useToast } from "@/lib/toast";
@@ -37,7 +38,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const handleReserve = () => {
     const result = addItem(product, size, quantity);
     if (result.ok) {
-      router.push("/cart/?checkout=1");
+      router.push("/cart/");
     } else {
       toast(result.message ?? "Could not add");
     }
@@ -169,7 +170,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   Add to Cart
                 </Button>
                 <Button onClick={handleReserve} variant="glass" className="w-full">
-                  Reserve / Checkout Inquiry
+                  Reserve This Piece
                 </Button>
                 <Button
                   href={buildProductInquiryMailto(product.name)}
@@ -184,8 +185,9 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               </Reveal>
 
               <p className="mt-6 text-xs leading-relaxed text-muted">
-                Confirm availability by email or Instagram while secure checkout
-                is finalized. Many pieces are limited to one item.
+                Add to your selection, then review the estimated total on the
+                cart page before proceeding to Stripe.{" "}
+                {LIMITED_PIECES_MESSAGE}
               </p>
 
               <Link

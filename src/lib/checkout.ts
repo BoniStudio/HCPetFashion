@@ -1,21 +1,16 @@
 import type { CartItem } from "./cart";
+import { STRIPE_PAYMENT_LINK } from "./constants";
 
 export type CheckoutResult =
   | { ok: true; url: string }
-  | { ok: false; reason: "static_hosting" | "not_configured" | "empty_cart" };
+  | { ok: false; reason: "empty_cart" | "not_configured" };
 
 /**
- * Stripe Checkout session — server-side only.
+ * Static GitHub Pages checkout — Stripe Payment Link (customer-entered amount).
+ * No serverless session; cart UI shows estimated total before redirect.
  *
- * TODO (Vercel Serverless): app/api/checkout/route.ts
- *   import Stripe from "stripe";
- *   export async function POST(req) { ... stripe.checkout.sessions.create(...) }
- *
- * TODO (Netlify Function): netlify/functions/create-checkout.ts
- *
- * TODO (Cloudflare Worker): workers/checkout.ts — proxy to Stripe API with secret in env
- *
- * Never expose STRIPE_SECRET_KEY in this file or any client bundle.
+ * TODO: Replace with Stripe Checkout Session via serverless when backend exists.
+ * Never expose STRIPE_SECRET_KEY in client bundles.
  */
 export async function createCheckoutSession(
   cartItems: CartItem[]
@@ -38,12 +33,24 @@ export async function createCheckoutSession(
         if (data.url) return { ok: true, url: data.url };
       }
     } catch {
-      /* fall through */
+      /* fall through to payment link */
     }
   }
 
-  return { ok: false, reason: "static_hosting" };
+  return { ok: true, url: STRIPE_PAYMENT_LINK };
 }
 
 export const CHECKOUT_PREP_MESSAGE =
-  "Secure checkout is being finalized. Email us your selection or message us on Instagram for the fastest confirmation.";
+  "Review your estimated total below, then continue to Stripe to complete payment.";
+
+export const STRIPE_AMOUNT_REMINDER =
+  "Please enter this amount on the Stripe checkout page.";
+
+export const NO_ACCOUNT_MESSAGE =
+  "No account is needed. Stripe collects your email, phone number, and shipping address securely. We use that information to match your payment with your selected pieces.";
+
+export const LIMITED_PIECES_MESSAGE =
+  "Because many pieces are limited, final availability is confirmed manually after payment.";
+
+export const STRIPE_MANUAL_AMOUNT_NOTE =
+  "Stripe will ask you to enter the payment amount manually. Please enter the estimated total shown above.";

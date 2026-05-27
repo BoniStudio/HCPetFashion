@@ -1,49 +1,56 @@
 import type { CartItem } from "./cart";
+import {
+  CONTACT_EMAIL,
+  INSTAGRAM_URL,
+  STRIPE_PAYMENT_LINK,
+} from "./constants";
 import { formatPrice } from "./utils";
-import { SITE_URL } from "./site";
 
-export function buildOrderSummary(items: CartItem[], total: number): string {
-  const lines = [
-    "HC Pet Fashion Order Inquiry",
-    SITE_URL,
-    "",
-  ];
+export type OrderTotals = {
+  subtotal: number;
+  shipping: number;
+  total: number;
+};
+
+function formatShipping(shipping: number): string {
+  return shipping === 0 ? "Complimentary" : formatPrice(shipping);
+}
+
+export function buildOrderSummary(
+  items: CartItem[],
+  { subtotal, shipping, total }: OrderTotals
+): string {
+  const lines = ["HC Pet Fashion Order Inquiry", "", "Items:"];
 
   items.forEach((item, i) => {
     lines.push(
-      `Item ${i + 1}`,
-      `Product: ${item.name}`,
-      `Size: ${item.size}`,
-      `Quantity: ${item.quantity}`,
-      `Price: ${formatPrice(item.price * item.quantity)}`,
-      `URL: ${SITE_URL}/product/${item.slug}/`,
+      `${i + 1}. ${item.name}`,
+      `   Size: ${item.size}`,
+      `   Quantity: ${item.quantity}`,
+      `   Price: ${formatPrice(item.price * item.quantity)}`,
       ""
     );
   });
 
-  lines.push(`Total: ${formatPrice(total)}`);
-  lines.push("");
   lines.push(
-    "Because many pieces are limited to one item, we confirm availability before payment."
+    `Subtotal: ${formatPrice(subtotal)}`,
+    `Shipping: ${formatShipping(shipping)}`,
+    `Estimated Total: ${formatPrice(total)}`,
+    "",
+    `Please enter this amount on Stripe: ${formatPrice(total)}`,
+    "",
+    `Email: ${CONTACT_EMAIL}`,
+    `Instagram: ${INSTAGRAM_URL}`,
+    `Stripe: ${STRIPE_PAYMENT_LINK}`
   );
 
   return lines.join("\n");
 }
 
 /** Plain-text body for mailto: order inquiry */
-export function buildOrderMailtoBody(items: CartItem[], total: number): string {
-  const lines = ["Order summary:"];
-
-  items.forEach((item) => {
-    lines.push(
-      `- Product name: ${item.name}`,
-      `- Size: ${item.size}`,
-      `- Quantity: ${item.quantity}`,
-      `- Page URL: ${SITE_URL}/product/${item.slug}/`,
-      ""
-    );
-  });
-
-  lines.push(`- Total: ${formatPrice(total)}`);
-  return lines.join("\n");
+export function buildOrderMailtoBody(
+  items: CartItem[],
+  { subtotal, shipping, total }: OrderTotals
+): string {
+  return buildOrderSummary(items, { subtotal, shipping, total });
 }

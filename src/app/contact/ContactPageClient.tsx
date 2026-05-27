@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import {
@@ -10,44 +9,10 @@ import {
   INSTAGRAM_HANDLE,
   INSTAGRAM_QR,
   INSTAGRAM_URL,
+  STRIPE_PAYMENT_LINK,
 } from "@/lib/constants";
 
-function buildDraftMessage(form: FormData): string {
-  return [
-    "HC Pet Fashion — Inquiry Draft",
-    "",
-    `Name: ${form.get("name")}`,
-    `Your email: ${form.get("email")}`,
-    `Pet type: ${form.get("petType") || "—"}`,
-    "",
-    "Message:",
-    String(form.get("message") ?? ""),
-    "",
-    `Send to: ${CONTACT_EMAIL}`,
-  ].join("\n");
-}
-
 export function ContactPageClient() {
-  const [draft, setDraft] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-
-  const handleDraft = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    setDraft(buildDraftMessage(form));
-  };
-
-  const handleCopy = async () => {
-    if (!draft) return;
-    try {
-      await navigator.clipboard.writeText(draft);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
-  };
-
   return (
     <div className="pt-[4.5rem] md:pt-20">
       <div className="mx-auto max-w-[1100px] px-6 py-16 md:px-12 lg:py-24">
@@ -60,7 +25,8 @@ export function ContactPageClient() {
           </h1>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted">
             For sizing, custom requests, availability, or order questions, email
-            us directly or message us on Instagram.
+            us directly or message us on Instagram. For checkout help, email us
+            with your selected items or message us on Instagram.
           </p>
 
           <a
@@ -129,80 +95,23 @@ export function ContactPageClient() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.12} className="mt-12">
-          <div className="glass-panel p-8">
-            <p className="font-display text-[10px] tracking-[0.2em] text-muted uppercase">
-              Message draft helper
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              Optional — compose a draft here, copy it, then paste into your
-              email or Instagram message. Nothing is sent from this site.
-            </p>
-
-            {draft ? (
-              <div className="mt-6">
-                <pre className="max-h-48 overflow-auto whitespace-pre-wrap rounded-sm border border-ink/10 bg-white/40 p-4 font-mono text-[11px] leading-relaxed text-ink">
-                  {draft}
-                </pre>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Button onClick={handleCopy} variant="glass">
-                    {copied ? "Copied" : "Copy draft"}
-                  </Button>
-                  <Button href={CONTACT_MAILTO_HREF} variant="primary">
-                    Email Us
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setDraft(null)}
-                  >
-                    Edit draft
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleDraft} className="mt-6 space-y-6">
-                {[
-                  { name: "name", label: "Name", type: "text" },
-                  { name: "email", label: "Your email", type: "email" },
-                  { name: "petType", label: "Pet type", type: "text" },
-                ].map((field) => (
-                  <div key={field.name}>
-                    <label className="font-display text-[10px] tracking-[0.2em] text-muted uppercase">
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      required={field.name !== "petType"}
-                      className="input-future mt-2 rounded-sm"
-                    />
-                  </div>
-                ))}
-                <div>
-                  <label className="font-display text-[10px] tracking-[0.2em] text-muted uppercase">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="input-future mt-2 resize-none rounded-sm"
-                  />
-                </div>
-                <Button type="submit" variant="outline">
-                  Generate draft
-                </Button>
-              </form>
-            )}
-          </div>
-        </Reveal>
-
-        <div className="glass-panel mt-8 p-8">
+        <div className="glass-panel mt-12 p-8">
           <h2 className="font-display text-lg font-medium text-ink">Fit help</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             Share neck, chest, and back length measurements by email or Instagram.
             We will recommend a size or discuss bespoke adjustments.
+          </p>
+          <p className="mt-4 text-xs leading-relaxed text-muted">
+            Checkout: add items to your cart first to see the estimated total,
+            then proceed to Stripe from the cart page.{" "}
+            <a
+              href={STRIPE_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline decoration-ink/20 underline-offset-2 hover:decoration-accent/60"
+            >
+              Stripe checkout
+            </a>
           </p>
         </div>
 
